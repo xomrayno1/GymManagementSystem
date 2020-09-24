@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="front-end" template="/WEB-INF/views/front-end/layout/master-layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/front-end/layout/header.jsp"/>	
+		<put-attribute name="body" value="/WEB-INF/views/front-end/layout/body.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/front-end/layout/footer.jsp"/>
+	</definition>
+	<definition name="back-end" template="/WEB-INF/views/back-end/layout/master-layout.jsp">
+		<put-attribute name="top-nav" value="/WEB-INF/views/back-end/layout/top-nav.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/back-end/layout/sidebar.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/back-end/layout/body.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/back-end/layout/footer.jsp"/>
+	</definition>
+	
+	<definition name="index" template="/WEB-INF/views/front-end/index.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/front-end/layout/header.jsp"/>	
+		<put-attribute name="banner" value="/WEB-INF/views/front-end/layout/banner.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/front-end/layout/footer.jsp"/>
+	</definition>
+	<definition name="404" template="/WEB-INF/views/front-end/404/404.jsp"/>
+	<definition name="product-detail" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/product/product-detail.jsp"></put-attribute>
+	</definition>
+	<definition name="product-category-list" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/product/product-category-list.jsp"></put-attribute>
+	</definition>
+	
+	
+	
+	<definition name="manage/productInfo-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/product-info/productInfo-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/productInfo-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/product-info/productInfo-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/publisher-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/publisher/publisher-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/publisher-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/publisher/publisher-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/author-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/author/author-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/author-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/author/author-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/category-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/category/category-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/category-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/category/category-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/access-denied" template="/WEB-INF/views/back-end/access-denied/access-denied.jsp"/>
+	<definition name="manage/login" template="/WEB-INF/views/back-end/login/login.jsp"/>
+	<definition name="manage/index" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/index.jsp"></put-attribute>
+	</definition>	
+	
+</tiles-definitions>
