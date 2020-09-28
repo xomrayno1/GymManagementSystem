@@ -1686,7 +1686,7 @@ textarea:focus {
 .cart-text > span.digit {
     margin-bottom: 6px;
 }
-.header-cart > a .header-icon-style span {
+.header-cart >  .header-icon-style span {
     background-color: #e02c2b;
     border-radius: 100%;
     color: #fff;
@@ -2682,7 +2682,7 @@ product-quantity {
     color: #e02c2b;
 }
 .product-quantity {
-    display: block;
+    display: inline;
     margin: 0 0 16px;
     overflow: hidden;
 }
@@ -3393,6 +3393,7 @@ h4.shop-sidebar-title {
     display: inline-block;
     float: left;
     margin-right: 3px;
+    margin-left: 15px;
 }
 .pro-details-cart-wrap .product-quantity {
     margin: 0 0 0px;
@@ -3822,7 +3823,6 @@ h4.cart-bottom-title {
 .tax-select select {
     -moz-appearance: none;
     -webkit-appearance: none;
-    background: #fff url("../../assets/img/icon-img/cart.png") no-repeat scroll right 18px center;
     border: 1px solid #ebebeb;
     box-shadow: none;
     color: #242424;
@@ -4095,7 +4095,10 @@ h4.grand-totall-title span {
 .panel.panel-default {
     border: 1px solid #ebebeb;
     margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 h5.panel-title {
     background-color: #f9f9f9;
     border-bottom: 1px solid #ebebeb;
@@ -5325,4 +5328,56 @@ h5.panel-title span {
    -webkit-line-clamp: 2; /* number of lines to show */
    -webkit-box-orient: vertical;
 }
-
+.has-error{
+	text-align: center;
+    margin-bottom: 15px;
+}
+.help-block{
+	color: red;
+}
+.icon-header{
+	margin-right: 4px;
+    margin-left: 3px;
+}
+.cart-header{
+	border: 1px solid;
+    padding: 5px;
+    background: #e6e6e6;
+}
+.item{
+	background-color: rgb(255, 255, 255);
+    padding: 17px;
+    border-radius: 4px;
+    margin: 0px 0px 10px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 13px;
+    line-height: 19px;
+}
+.action .edit {
+    padding: 5px;
+    color: #169fef;
+}
+.action .delete {
+    background: #dceaef;
+    padding: 5px 15px 5px 15px;
+    font-size: 14px;
+    color: red;
+}    
+.info{
+	display: inline;
+}
+.name {
+    margin-bottom: 10px;
+}
+.address span {
+    color: #6f6363;
+}
+.phone span {
+    color: #6f6363;
+}
+.status {
+    border: 1px solid;
+    padding: 10px;
+}

@@ -26,6 +26,15 @@ public class Role{
 	private Date updateDate;
 	private int activeFlag;
 	
+	
+	public Role() {
+		
+	}
+	
+	public Role(int id) {
+		super();
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}

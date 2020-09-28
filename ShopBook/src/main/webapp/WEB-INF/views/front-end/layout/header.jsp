@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
         <header class="header-area">
             <div class="header-middle">
@@ -16,75 +17,45 @@
                         <div class="col-lg-9 col-md-8 col-12 col-sm-8">
                             <div class="header-middle-right f-right">
                                 <div class="header-login">
-                                    <a href='<c:url value="/index"/>'>
-                                        <div class="header-icon-style">
-                                            <i class="icon-user icons"></i>
-                                        </div>
-                                        <div class="login-text-content">
-                                            <p>Register <br> or <span>Sign in</span></p>
-                                        </div>
-                                    </a>
-                                </div>
+                                      <div class="login-text-content">
+			                              <p>
+			                                 <c:choose>
+			                                  	<c:when test="${userInfo == null}">
+			                                  		<a href='<c:url value="/register"></c:url>'><span>
+			                                  			<i class="fa fa-key icon-header"></i> Tạo tài khoản</span>
+			                                  		</a>	                                  	
+			                                  		<a href='<c:url value="/login"></c:url>'>
+			                                  			<i class="fa fa-lock icon-header"></i><span> Đăng nhập</span>
+			                                  		</a>
+			                                  	</c:when>
+			                                  	<c:otherwise>
+			                                  		<a href='<c:url value="/order/list"></c:url>'>
+														<i class="fa fa-map-marker icon-header" ></i><span> Kiểm tra đơn hàng</span>
+													</a>
+													<a href='<c:url value="/account/"></c:url>'>
+														<i class="fa fa-user icon-header" ></i><span> Tài khoản</span>
+													</a>
+				                                  	<a href='<c:url value="/logout"></c:url>'>
+				                                  		<i class="fa fa-key icon-header"></i><span> Đăng xuất</span>
+				                                  	</a>
+			                                  	</c:otherwise>
+			                                 </c:choose>
+							                       <a href='<c:url value="/account/wishlist"></c:url>'>
+				                                        <i class="icon-heart icon-header"></i><span> Yêu Thích</span>
+				                                        
+				                                   </a>
+			                              </p>
+		                             </div>
+                               </div>
                                 <div class="header-wishlist">
-                                    <a href="wishlist.html">
-                                        <div class="header-icon-style">
-                                            <i class="icon-heart icons"></i>
-                                        </div>
-                                        <div class="wishlist-text">
-                                            <p>Your <br> <span>Wishlist</span></p>
-                                        </div>
-                                    </a>
                                 </div>
-                                <div class="header-cart">
-                                    <a href="#">
-                                        <div class="header-icon-style">
-                                            <i class="icon-handbag icons"></i>
-                                            <span class="count-style">02</span>
-                                        </div>
-                                        <div class="cart-text">
-                                            <span class="digit">My Cart</span>
-                                            <span class="cart-digit-bold">$209.00</span>
-                                        </div>
-                                    </a>
-                                    <div class="shopping-cart-content">
-                                        <ul>
-                                            <li class="single-shopping-cart">
-                                                <div class="shopping-cart-img">
-                                                    <a href="#"><img alt="" src='<c:url value="/resources/frontend/img/cart/cart-1.jpg"></c:url>'></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="#">Phantom Remote </a></h4>
-                                                    <h6>Qty: 02</h6>
-                                                    <span>$260.00</span>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="ion ion-close"></i></a>
-                                                </div>
-                                            </li>
-                                            <li class="single-shopping-cart">
-                                                <div class="shopping-cart-img">
-                                                    <a href="#"><img alt="" src='<c:url value="/resources/frontend/img/cart/cart-2.jpg"></c:url>'></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="#">Phantom Remote</a></h4>
-                                                    <h6>Qty: 02</h6>
-                                                    <span>$260.00</span>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="ion ion-close"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="shopping-cart-total">
-                                            <h4>Shipping : <span>$20.00</span></h4>
-                                            <h4>Total : <span class="shop-total">$260.00</span></h4>
-                                        </div>
-                                        <div class="shopping-cart-btn">
-                                            <a href="cart-page.html">view cart</a>
-                                            <a href="checkout.html">checkout</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="cart-header">
+                                	<i class="fa fa-cart-plus icon-header"></i>
+                                	<a href='<c:url value="/cart/list"></c:url>'>
+				                    <span> Giỏ hàng (${cartInfo.listDetailDTOs.size()})</span>
+				                  	<span class="shop-total"><fmt:formatNumber type="currency" value="${cartInfo.totalPrice}" /></span>
+				                </a>
+                                </div>	
                             </div>
                         </div>
                     </div>
@@ -118,6 +89,11 @@
                                                 <li><a href="blog-details-video.html">Blog details video</a></li>
                                             </ul>
                                         </li>
+                                        <li>
+                                        	<form id="searchForm" method="get" action='<c:url value="/tim-kiem/"></c:url>'>
+                                        		<input name="s"   placeholder="Tìm kiếm" id="s">
+                                        	</form>
+                                        </li>                                       
                                     </ul>
                                 </nav>
                             </div>
@@ -126,6 +102,7 @@
                 </div>
             </div>
             <!-- mobile-menu-area-start -->
+			<!-- 
 			<div class="mobile-menu-area">
 				<div class="container">
 					<div class="row">
@@ -216,5 +193,6 @@
 					</div>
 				</div>
 			</div>
+			 -->
 			<!-- mobile-menu-area-end -->
         </header>

@@ -25,7 +25,6 @@ public class FilterMenuCategory implements HandlerInterceptor{
 		List<CategoryDTO> listChild = new ArrayList<CategoryDTO>();
 		
 		for(CategoryDTO dto : list) {
-			dto.setIdCategory(dto.getUrl().replace("-","")+"Id");
 			if(dto.getIdParent() == 0) {
 				listParent.add(dto);
 			}else {

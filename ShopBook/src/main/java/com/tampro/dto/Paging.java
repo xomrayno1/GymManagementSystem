@@ -9,7 +9,7 @@ public class Paging {
 	
 	
 	public Paging() {
-		
+		totalProduct = 0 ;
 	}
 	
 	public Paging(int numberPerPage) {		

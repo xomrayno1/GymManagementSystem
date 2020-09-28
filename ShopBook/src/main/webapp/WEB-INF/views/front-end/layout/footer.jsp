@@ -11,13 +11,13 @@
                             <div class="footer-about mb-40">
                                 <div class="footer-logo">
                                     <a href="index.html">
-                                        <img src='<c:url value="/resources/front-end/img/logo/footer-logo.png"></c:url>' alt="">
+                                        <img src='<c:url value="/resources/frontend/img/logo/footer-logo.png"></c:url>' alt="">
                                     </a>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incidi ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                                 <div class="payment-img">
                                     <a href="#">
-                                        <img src='<c:url value="/resources/front-end/img/icon-img/payment.png"></c:url>' alt="">
+                                        <img src='<c:url value="/resources/frontend/img/icon-img/payment.png"></c:url>' alt="">
                                     </a>
                                 </div>
                             </div>

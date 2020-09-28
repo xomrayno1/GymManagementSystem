@@ -44,7 +44,7 @@ public class FilterSystem  implements HandlerInterceptor{
 
 	private boolean hasPermission(String url, UserDTO userDTO) {
 		// TODO Auto-generated method stub
-		if(url.contains("/manage/index")) {
+		if(url.contains("/manage/index") ) {
 			return true;
 		}
 		UserRoleDTO userRole = userDTO.getUserRoleDTOs().iterator().next();

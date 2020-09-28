@@ -12,6 +12,16 @@ public class RoleDTO {
 	private int activeFlag;
 	private Set<AuthDTO> auths;
 	
+	
+	
+	
+	public RoleDTO() {
+		super();
+	}
+	public RoleDTO(int id) {
+		super();
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}

@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import com.tampro.dao.UserDAO;
 import com.tampro.dto.Paging;
 import com.tampro.dto.UserDTO;
+import com.tampro.dto.UserRoleDTO;
 import com.tampro.entity.User;
 import com.tampro.utils.ConvertToDTO;
 
@@ -20,9 +21,10 @@ import com.tampro.utils.ConvertToDTO;
 public class UserService {
 	@Autowired
 	UserDAO<User> userDAO;
+	@Autowired
+	UserRoleService userRoleService;
 	
-	
-	public void add(UserDTO userDTO) {
+	public void add(UserDTO userDTO)  throws Exception{
 		User user = new User();
 		user.setActiveFlag(1);
 		user.setBirthDay(userDTO.getBirthDay());
@@ -33,7 +35,8 @@ public class UserService {
 		user.setPhone(userDTO.getPhone());
 		user.setUpdateDate(new Date());
 		user.setUsername(userDTO.getUsername());
-		userDAO.add(user);
+		int id = userDAO.addInt(user);
+		userRoleService.add(new UserRoleDTO(id,userDTO.getIdRole()));
  	}
 	public void delete(UserDTO userDTO) {
 		User user = new User();
@@ -45,9 +48,14 @@ public class UserService {
 		user.setName(userDTO.getName());
 		user.setPassword(userDTO.getPassword());
 		user.setPhone(userDTO.getPhone());
-		user.setUpdateDate(userDTO.getUpdateDate());
+		user.setUpdateDate(new Date());
 		user.setUsername(userDTO.getUsername());
 		userDAO.delete(user);
+		List<UserRoleDTO> userRoleDTOs = userRoleService.getAllByProperty("user.id", user.getId());
+		if(!userRoleDTOs.isEmpty()) {
+			userRoleDTOs.get(0).setIdRole(userDTO.getIdRole());
+			userRoleService.delete(userRoleDTOs.get(0));
+		}
 	}
 	public void update(UserDTO userDTO) {
 		User user = new User();
@@ -59,7 +67,26 @@ public class UserService {
 		user.setName(userDTO.getName());
 		user.setPassword(userDTO.getPassword());
 		user.setPhone(userDTO.getPhone());
-		user.setUpdateDate(userDTO.getUpdateDate());
+		user.setUpdateDate(new Date());
+		user.setUsername(userDTO.getUsername());
+		userDAO.update(user);
+		List<UserRoleDTO> userRoleDTOs = userRoleService.getAllByProperty("user.id", user.getId());
+		if(!userRoleDTOs.isEmpty()) {
+			userRoleDTOs.get(0).setIdRole(userDTO.getIdRole());
+			userRoleService.update(userRoleDTOs.get(0));
+		}
+	}
+	public void updatePassword(UserDTO userDTO) {
+		User user = new User();
+		user.setActiveFlag(userDTO.getActiveFlag());
+		user.setBirthDay(userDTO.getBirthDay());
+		user.setCreateDate(new Date());
+		user.setEmail(userDTO.getEmail());
+		user.setId(userDTO.getId());
+		user.setName(userDTO.getName());
+		user.setPassword(userDTO.getPassword());
+		user.setPhone(userDTO.getPhone());
+		user.setUpdateDate(new Date());
 		user.setUsername(userDTO.getUsername());
 		userDAO.update(user);
 	}

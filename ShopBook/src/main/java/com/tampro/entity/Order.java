@@ -37,7 +37,13 @@ public class Order {
 	private Date updateDate;
 	private int activeFlag;
 	
-	
+	public Order() {
+		
+	}
+	public Order(int id) {
+		super();
+		this.id = id;
+	}
 	public Date getCreateDate() {
 		return createDate;
 	}

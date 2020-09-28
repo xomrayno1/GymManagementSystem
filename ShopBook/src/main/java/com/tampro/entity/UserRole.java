@@ -24,6 +24,18 @@ public class UserRole{
 	private Date updateDate;
 	private int activeFlag;
 	
+	public UserRole() {
+	
+	}
+	
+	public UserRole(int id) {
+		this.id = id;
+	}
+	
+	
+	public UserRole(Role role , User user) {
+		
+	}
 	public int getId() {
 		return id;
 	}

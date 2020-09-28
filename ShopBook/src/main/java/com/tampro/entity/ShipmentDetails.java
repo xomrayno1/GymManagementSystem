@@ -29,6 +29,12 @@ public class ShipmentDetails {
 	
 	
 	
+	public ShipmentDetails() {
+		super();
+	}
+	public ShipmentDetails(int id) {
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}

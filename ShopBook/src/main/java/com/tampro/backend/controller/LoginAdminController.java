@@ -30,7 +30,7 @@ import com.tampro.validator.LoginValidator;
 
 @Controller
 @RequestMapping(value = "/manage")
-public class LoginController {
+public class LoginAdminController {
 	@Autowired
 	LoginValidator loginValidator;
 	@Autowired
@@ -48,7 +48,10 @@ public class LoginController {
 	}
 	
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(Model model,HttpSession session) {
+		if(session.getAttribute(Constant.USER_INFO) != null) {
+			return "redirect:/manage/index";
+		}
 		model.addAttribute("loginForm", new UserDTO());
 		return "manage/login";
 	}
@@ -100,9 +103,9 @@ public class LoginController {
 		return "manage/index";
 	}
 	@GetMapping("/logout")
-	public String logout(Model model) {
-		model.addAttribute("loginForm", new UserDTO());
-		return "redirect:/manage/index";
+	public String logout(Model model,HttpSession session) {
+		session.removeAttribute(Constant.USER_INFO);
+		return "redirect:/manage/login";
 	}
 	@GetMapping("/access-denied")
 	public String accessDenied(Model model) {

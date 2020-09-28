@@ -9,6 +9,30 @@ public class UserRoleDTO {
 	private Date createDate;
 	private Date updateDate;
 	private int activeFlag;
+	private int idRole;
+	
+	
+	
+	
+	
+	public UserRoleDTO(RoleDTO roleDTO) {
+		super();
+		this.roleDTO = roleDTO;
+	}
+	public UserRoleDTO(int id ,int idUser, int idRole) {
+		super();
+		this.id = id;
+		this.idUser = idUser;
+		this.idRole = idRole;
+	}
+	public UserRoleDTO(int idUser, int idRole) {
+		super();
+		this.idUser = idUser;
+		this.idRole = idRole;
+	}
+	public UserRoleDTO() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
@@ -44,6 +68,12 @@ public class UserRoleDTO {
 	}
 	public void setActiveFlag(int activeFlag) {
 		this.activeFlag = activeFlag;
+	}
+	public int getIdRole() {
+		return idRole;
+	}
+	public void setIdRole(int idRole) {
+		this.idRole = idRole;
 	}
 	
 	

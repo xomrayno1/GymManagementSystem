@@ -3,7 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:set  value="${listProduct.get(0).categoryDTO.url}" var="url"  />
+<c:set  value="${category.url}" var="url"  />
+<c:set  value="${category.idCategory}" var="idCate"  />
         <div class="breadcrumb-area gray-bg">
             <div class="container">
                 <div class="breadcrumb-content">
@@ -14,13 +15,13 @@
                 </div>
             </div>
         </div>       
-        <div class="shop-page-area pt-100 pb-100">
+        <div class="shop-page-area  pb-100">
             <div class="container">
                 <div class="row flex-row-reverse">
                     <div class="col-lg-9">
                         <div class="shop-topbar-wrapper">
                             <div class="shop-topbar-left">
-                                <p>Showing 1 - 24 of 30 results  </p>
+                                <p>Showing ${pageInfo.offSet + 1} - ${pageInfo.numberPerPage} of ${pageInfo.totalProduct} results  </p>
                             </div>                           
 	                            <div class="product-sorting-wrapper">                                
 		                                <div class="product-shorting shorting-style">
@@ -39,7 +40,7 @@
                         <div class="grid-list-product-wrapper">
                             <div class="product-grid product-view pb-20">
                                 <div class="row">
-                                   <c:forEach items="${listProduct}" var="product">
+                                   <c:forEach items="${category.productInfoDTOs}" var="product">
                                    		 <div class="product-width col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 mb-30">
 	                                        <div class="product-wrapper">
 	                                            <div class="product-img">
@@ -49,8 +50,8 @@
 	                                            </div>
 	                                            <div class="product-content">
 		                                            <div class="pro-action-left">
-		                                                <a title="Add To Cart" href="#"><i class="ion-android-cart"></i></a>
-		                                                <a title="Wishlist" href="wishlist.html"><i class="ion-ios-heart-outline"></i></a>
+		                                                <a title="Add To Cart" href='<c:url value="/cart/add-to-cart?id=${product.id}"></c:url>'><i class="ion-android-cart"></i></a>
+		                                                <a title="Wishlist" href='<c:url value="/account/wishlist/add-to-wishlist?id=${product.id}"></c:url>'><i class="ion-ios-heart-outline"></i></a>
 		                                            </div>
 	                                                <h4>
 	                                                    <a href='<c:url value="/${product.url}"></c:url>' class="title-product">${product.name}</a>
@@ -84,9 +85,9 @@
                                         <li><a class="prev-next next" href="#">Next<i class="ion-ios-arrow-right"></i> </a></li>
                                     </ul>
                                 </div>
-                                <div class="total-pages">
+                               <!--  <div class="total-pages">
                                     <p>Showing 1 - 20 of 30 results  </p>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -100,14 +101,15 @@
                                         <li> <a data-toggle="collapse" data-parent="#faq" href="#shop-catigory-${i.index + 1}">${menu.name }<i class="ion-ios-arrow-down"></i></a>
                                             <ul id="shop-catigory-${i.index + 1}" class="panel-collapse collapse show">
                                                 <c:forEach items="${menu.childCategory}" var="item">
-                                                	<li id="${item.idCategory}"><a href='<c:url value="/the-loai/${item.url}"></c:url>'>${item.name} </a></li>
-                                                </c:forEach>                                                
+                                                	<li id="${item.idCategory}"><a   href='<c:url value="/the-loai/${item.url}"></c:url>'>${item.name} </a></li>
+                                                </c:forEach>                                                                                                
                                             </ul>
                                         </li>
                                     </c:forEach>    
                                     </ul>
                                 </div>
                             </div>
+                            
                             <div class="shop-price-filter mt-40 shop-sidebar-border pt-35">
                                 <h4 class="shop-sidebar-title">Price Filter</h4>
                                 <div class="price_filter mt-25">
@@ -155,5 +157,10 @@
         	$("#filterForm").submit();  
         }
        
+        $(document).ready(function(){
+        	var id = '${url}';
+        	$('#${idCate}').children().css("color","red");
+        });
+        
 		</script>
         

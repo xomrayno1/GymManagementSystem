@@ -1,28 +1,40 @@
 package com.tampro.utils;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import com.tampro.dto.AddressDTO;
 import com.tampro.dto.AuthDTO;
 import com.tampro.dto.AuthorDTO;
 import com.tampro.dto.CategoryDTO;
 import com.tampro.dto.MenuDTO;
+import com.tampro.dto.OrderDTO;
+import com.tampro.dto.OrderDetailDTO;
 import com.tampro.dto.ProductInfoDTO;
 import com.tampro.dto.PublisherDTO;
 import com.tampro.dto.RoleDTO;
+import com.tampro.dto.ShipmentDetailsDTO;
 import com.tampro.dto.UserDTO;
 import com.tampro.dto.UserRoleDTO;
+import com.tampro.dto.WishListDTO;
+import com.tampro.entity.Address;
 import com.tampro.entity.Auth;
 import com.tampro.entity.Author;
 import com.tampro.entity.Category;
 import com.tampro.entity.Menu;
+import com.tampro.entity.Order;
+import com.tampro.entity.OrderDetail;
 import com.tampro.entity.ProductInfo;
 import com.tampro.entity.Publisher;
 import com.tampro.entity.Role;
+import com.tampro.entity.ShipmentDetails;
 import com.tampro.entity.User;
 import com.tampro.entity.UserRole;
+import com.tampro.entity.WishList;
 
 public class ConvertToDTO {
 
@@ -36,7 +48,8 @@ public class ConvertToDTO {
 		categoryDTO.setImgUrl(category.getImgUrl());
 		categoryDTO.setName(category.getName());
 		categoryDTO.setUpdateDate(category.getUpdateDate());
-		categoryDTO.setUrl(category.getUrl());		
+		categoryDTO.setUrl(category.getUrl());
+		categoryDTO.setIdCategory(category.getUrl().replace("-", "").replace("&", "")+"Id");
 		return categoryDTO;		
 	}
 	public static AuthorDTO convertAuthorEntity(Author author) {
@@ -50,6 +63,21 @@ public class ConvertToDTO {
 		authorDTO.setUpdateDate(author.getUpdateDate());
 		authorDTO.setUrl(author.getUrl());
 		return authorDTO;
+	}
+	public static AddressDTO convertAddressEntity(Address address) {
+		AddressDTO addressDTO= new AddressDTO();
+		addressDTO.setActiveFlag(address.getActiveFlag());
+		addressDTO.setCreateDate(address.getCreateDate());
+		addressDTO.setDescription(address.getDescription());
+		addressDTO.setCommune(address.getCommune());
+		addressDTO.setDistrict(address.getDistrict());
+		addressDTO.setProvince(address.getProvince());
+		addressDTO.setUpdateDate(address.getUpdateDate());
+		addressDTO.setPhone(address.getPhone());
+		addressDTO.setName(address.getName());
+		addressDTO.setIdUser(address.getUser().getId());
+		addressDTO.setId(address.getId());
+		return addressDTO;
 	}
 	public static UserDTO convertUserEntity(User user) {
 		UserDTO userDTO = new UserDTO();
@@ -166,10 +194,75 @@ public class ConvertToDTO {
 		productInfoDTO.setUrl(productinfo.getUrl());
 		return productInfoDTO;
 	}
+	public static WishListDTO convertWishListEntity(WishList wishList) {
+		WishListDTO wishListDTO = new WishListDTO();
+		wishListDTO.setActiveFlag(wishList.getActiveFlag());
+		wishListDTO.setCreateDate(wishList.getCreateDate());
+		wishListDTO.setId(wishList.getId());
+		ProductInfoDTO productInfoDTO = convertProducInfoEntity(wishList.getProductInfo());
+		wishListDTO.setProductInfoDTO(productInfoDTO);
+		wishListDTO.setUpdateDate(wishList.getUpdateDate());
+		wishListDTO.setIdUser(wishList.getUser().getId());
+		return wishListDTO;
+		
+	}
+	public static OrderDTO convertOrderEntity(Order order) {
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setActiveFlag(order.getActiveFlag());
+		orderDTO.setCreateDate(order.getCreateDate());
+		orderDTO.setId(order.getId());
+		orderDTO.setIdUser(order.getUser().getId());
+		orderDTO.setSales(order.getSales());
+		ShipmentDetailsDTO shipmentDetails = convertShipmentDetailsEntity(order.getShipmentDetails());
+		orderDTO.setShipmentDetails(shipmentDetails);
+		orderDTO.setStatus(order.getStatus());
+		orderDTO.setSubTotal(order.getSubTotal());
+		orderDTO.setTotalPrice(order.getTotalPrice());
+		orderDTO.setUpdateDate(order.getUpdateDate());
+		orderDTO.setVat(order.getVat());
+		List<OrderDetailDTO> listDetailDTOs = new ArrayList<OrderDetailDTO>();
+		for(OrderDetail  orderDetail : order.getOrderDetails()) {
+			OrderDetailDTO orderDetailDTO = convertOrderDetailEntity(orderDetail);
+			listDetailDTOs.add(orderDetailDTO);
+		}
+		orderDTO.setListDetailDTOs(listDetailDTOs);	
+		return orderDTO;
+		
+	}
+	public static OrderDetailDTO convertOrderDetailEntity(OrderDetail orderDetail) {
+		OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
+		orderDetailDTO.setActiveFlag(orderDetail.getActiveFlag());
+		orderDetailDTO.setCreateDate(orderDetail.getCreateDate());
+		orderDetailDTO.setId(orderDetail.getId());
+		orderDetailDTO.setIdOrder(orderDetail.getOrder().getId());
+		orderDetailDTO.setPrice(orderDetail.getPrice());
+		ProductInfoDTO productInfoDTO = convertProducInfoEntity(orderDetail.getProductInfo());
+		orderDetailDTO.setProductInfoDTO(productInfoDTO);
+		orderDetailDTO.setQuantity(orderDetail.getQuantity());
+		orderDetailDTO.setStatus(orderDetail.getStatus());
+		orderDetailDTO.setTotalPrice(orderDetail.getTotalPrice());
+		orderDetailDTO.setUpdateDate(orderDetail.getUpdateDate());
+		return orderDetailDTO;
+	}
+	public static ShipmentDetailsDTO convertShipmentDetailsEntity(ShipmentDetails shipmentDetails) {
+		ShipmentDetailsDTO shipmentDetailsDTO = new ShipmentDetailsDTO();
+		shipmentDetailsDTO.setActiveFlag(shipmentDetails.getActiveFlag());
+		shipmentDetailsDTO.setCommune(shipmentDetails.getCommune());
+		shipmentDetailsDTO.setCreateDate(shipmentDetails.getCreateDate());
+		shipmentDetailsDTO.setDescription(shipmentDetails.getDescription());
+		shipmentDetailsDTO.setDistrict(shipmentDetails.getDistrict());
+		shipmentDetailsDTO.setId(shipmentDetails.getId());
+		shipmentDetailsDTO.setIdUser(shipmentDetails.getUser().getId());
+		shipmentDetailsDTO.setName(shipmentDetails.getName());
+		shipmentDetailsDTO.setPhone(shipmentDetails.getPhone());
+		shipmentDetailsDTO.setProvince(shipmentDetails.getProvince());
+		shipmentDetailsDTO.setUpdateDate(shipmentDetails.getUpdateDate());
+		return shipmentDetailsDTO;
+	}
 	public static String removeAccent(String url) {
 		String temp = Normalizer.normalize(url, Normalizer.Form.NFD);
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-		temp = pattern.matcher(temp).replaceAll("").replace(" ", "-").toLowerCase();
+		temp = pattern.matcher(temp).replaceAll("").replace(" ", "-").replace("'", "").toLowerCase();
 		return temp.replaceAll("đ", "d");
 	}
 //	public static void main(String[] args) {

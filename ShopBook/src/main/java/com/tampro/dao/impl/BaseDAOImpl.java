@@ -137,5 +137,4 @@ public class BaseDAOImpl<E>  implements BaseDAO<E>{
 		}
 		return generic;
 	}
-
 }

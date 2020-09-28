@@ -4,7 +4,7 @@
 
         <div class="slider-area-2">
             <div class="slider-active owl-dot-style owl-carousel">
-                <div class="single-slider pt-210 pb-220 bg-img" style="background-image:url(frontend/img/slider/slider-3.jpg);">
+                <div class="single-slider pt-210 pb-220 bg-img" style="background-image:url(<c:url value="/resources/frontend/img/slider/slider-3.jpg"></c:url>);">
                     <div class="container">
                         <div class="slider-content slider-animated-2 text-center">
                             <h1 class="animated">Drink & Heathy Food</h1>
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="single-slider pt-210 pb-220 bg-img" style="background-image:url(frontend/img/slider/slider-3.jpg);">
+				<div class="single-slider pt-210 pb-220 bg-img" style="background-image:url(<c:url value="/resources/frontend/img/slider/slider-3.jpg"></c:url>);">
                     <div class="container">
                         <div class="slider-content slider-animated-2 text-center">
                             <h1 class="animated">Drink & Heathy Food</h1>

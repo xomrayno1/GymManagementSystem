@@ -18,14 +18,49 @@
 		<put-attribute name="banner" value="/WEB-INF/views/front-end/layout/banner.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/front-end/layout/footer.jsp"/>
 	</definition>
-	<definition name="404" template="/WEB-INF/views/front-end/404/404.jsp"/>
+	
+	<definition name="login" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/login/login.jsp"></put-attribute>
+	</definition>
+	<definition name="register" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/register/register.jsp"></put-attribute>
+	</definition>
 	<definition name="product-detail" extends="front-end">
 		<put-attribute name="body" value="/WEB-INF/views/front-end/product/product-detail.jsp"></put-attribute>
 	</definition>
 	<definition name="product-category-list" extends="front-end">
 		<put-attribute name="body" value="/WEB-INF/views/front-end/product/product-category-list.jsp"></put-attribute>
 	</definition>
-	
+	<definition name="product-search-list" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/product/product-search-list.jsp"></put-attribute>
+	</definition>
+	<definition name="wishlist" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/wishlist/wishlist.jsp"></put-attribute>
+	</definition>		
+	<definition name="cart-list" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/cart/cart-list.jsp"></put-attribute>
+	</definition>
+	<definition name="info" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/account/info.jsp"></put-attribute>
+	</definition>
+	<definition name="password" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/account/password.jsp"></put-attribute>
+	</definition>
+	<definition name="address-list" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/address/address-list.jsp"></put-attribute>
+	</definition>
+	<definition name="address-action" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/address/address-action.jsp"></put-attribute>
+	</definition>
+	<definition name="shipping" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/checkout/shipping.jsp"></put-attribute>
+	</definition>
+	<definition name="payment" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/checkout/payment.jsp"></put-attribute>
+	</definition>
+	<definition name="order-list" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/order/order-list.jsp"></put-attribute>
+	</definition>
 	
 	
 	<definition name="manage/productInfo-list" extends="back-end">

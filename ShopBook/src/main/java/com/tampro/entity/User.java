@@ -34,6 +34,16 @@ public class User{
 	private Date updateDate;
 	private int activeFlag;
 	
+	
+	
+	
+	public User() {
+		super();
+	}
+	public User(int id) {
+		super();
+		this.id = id;
+	}
 	public int getId() {
 		return id;
 	}

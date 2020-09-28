@@ -81,16 +81,25 @@
      				<mvc:mapping path="/manage/**"/>
      				<mvc:exclude-mapping path="/manage/processLogin"/>
      				<mvc:exclude-mapping path="/manage/logout"/>
-     				<mvc:exclude-mapping path="/manage/access-denied"/>
      				<mvc:exclude-mapping path="/manage/login"/>
+     				<mvc:exclude-mapping path="/manage/access-denied"/>
+     				<mvc:exclude-mapping path="/resources/**"/>
      				<bean class="com.tampro.security.FilterSystem"></bean>
      			</mvc:interceptor>
      		</mvc:interceptors>
-     		     		<mvc:interceptors>
+     		 <mvc:interceptors>
      			<mvc:interceptor>
      				<mvc:mapping path="/**"/>
      				<mvc:exclude-mapping path="/manage/**"/>    				
      				<bean class="com.tampro.utils.FilterMenuCategory"></bean>
+     			</mvc:interceptor>
+     		</mvc:interceptors>
+     		<mvc:interceptors>
+     			<mvc:interceptor>	
+     				<mvc:mapping path="/account/**"/>
+     				<mvc:mapping path="/checkout/**"/>
+     				<mvc:mapping path="/order/**"/>					
+     				<bean class="com.tampro.utils.FilterUser"></bean>
      			</mvc:interceptor>
      		</mvc:interceptors>
            

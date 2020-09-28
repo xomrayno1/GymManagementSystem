@@ -9,5 +9,9 @@ import com.tampro.entity.User;
 @Repository
 @Transactional(rollbackFor = Exception.class)
 public class UserDAOImpl extends BaseDAOImpl<User>  implements UserDAO<User>{
-
+	@Override
+	public int addInt(User user) {
+		// TODO Auto-generated method stub
+		return (int) factory.getCurrentSession().save(user);
+	}
 }

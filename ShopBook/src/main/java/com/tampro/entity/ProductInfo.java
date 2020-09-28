@@ -40,6 +40,17 @@ public class ProductInfo{
 	private int activeFlag;
 	private String url;
 	
+	
+	
+	
+	
+	public ProductInfo(int id) {
+		super();
+		this.id = id;
+	}
+	public ProductInfo() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}

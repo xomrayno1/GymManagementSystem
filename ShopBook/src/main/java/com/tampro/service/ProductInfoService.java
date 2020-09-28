@@ -59,6 +59,33 @@ public class ProductInfoService {
 		}
 		return list;
 	}
+	public	List<ProductInfoDTO> getAllSort(ProductInfoDTO productInfoDTO,Paging paging,String sort){
+		StringBuilder queryStr = new  StringBuilder();
+		Map<String, Object> mapParam = new HashedMap();
+		if(productInfoDTO != null) {
+			if(!StringUtils.isEmpty(productInfoDTO.getCode()) && productInfoDTO.getCode() != null) {
+				queryStr.append(" and model.code =:code ");
+				mapParam.put("code", productInfoDTO.getCode());
+			}
+			if(!StringUtils.isEmpty(productInfoDTO.getName()) && productInfoDTO.getName() != null) {
+				queryStr.append(" and model.name  like :name ");
+				mapParam.put("name", "%"+productInfoDTO.getName()+"%");
+			}
+			if(!StringUtils.isEmpty(sort)) {
+				if(sort.equals("gia-tang")) {
+					queryStr.append(" ORDER BY model.price asc ");
+				}else if(sort.equals("gia-giam")){
+					queryStr.append(" ORDER BY model.price desc ");
+				}
+			}
+		}	
+		List<ProductInfoDTO> list = new ArrayList<ProductInfoDTO>();
+		for(ProductInfo productInfo : productInfoDAO.findAll(queryStr.toString(), mapParam, paging)) {
+			ProductInfoDTO dto = ConvertToDTO.convertProducInfoEntity(productInfo);
+			list.add(dto);
+		}
+		return list;
+	}
 	public	List<ProductInfoDTO> getAllByProperty(String property, Object object){
 		List<ProductInfoDTO> list = new ArrayList<ProductInfoDTO>();
 		for(ProductInfo productInfo : productInfoDAO.findByProperty(property, object)) {
