@@ -3883,7 +3883,7 @@ button.cart-btn-2:hover {
 }
 .grand-totall > h5 {
     font-size: 14px;
-    margin: 36px 0 27px;
+    
 }
 .grand-totall > h5 span {
     float: right;
@@ -5354,6 +5354,7 @@ h5.panel-title span {
     justify-content: space-between;
     font-size: 13px;
     line-height: 19px;
+    height: 120px;
 }
 .action .edit {
     padding: 5px;
@@ -5379,5 +5380,14 @@ h5.panel-title span {
 }
 .status {
     border: 1px solid;
-    padding: 10px;
+    padding: 5px;
+    margin-bottom: 7px;
+}
+.grand-total-orderview {
+	padding: 15px;
+	font-size: 15px;
+}
+.title-address{
+	padding: 5px;
+	margin-bottom: 10px;
 }

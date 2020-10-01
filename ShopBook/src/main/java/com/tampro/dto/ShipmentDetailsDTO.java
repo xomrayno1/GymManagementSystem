@@ -57,6 +57,11 @@ public class ShipmentDetailsDTO  extends Base{
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
-	
+	public String fullAddress() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(this.province).append(" ").append(this.district).append(" ").append(this.commune).append(" ")
+		.append(this.description);
+		return builder.toString();
+	}
 	
 }

@@ -27,8 +27,8 @@ public class Order {
 	@JoinColumn(name = "shipment_id")
 	private ShipmentDetails shipmentDetails;
 	private BigDecimal totalPrice;
-	private int vat;
-	private int sales;
+	private int vat = 0;
+	private int sales = 0;
 	private int status;
 	private BigDecimal subTotal;
 	@OneToMany(mappedBy = "order")

@@ -52,7 +52,8 @@ public class FilterSystem  implements HandlerInterceptor{
 		for(AuthDTO authDTO : roleDTO.getAuths()) {
 			MenuDTO menuDTO  = authDTO.getMenuDTO();
 			if(url.contains(menuDTO.getUrl())) {
-				return authDTO.getPermission() == 1 ? true : false;
+				System.out.println(authDTO.getPermission() == 1);
+				return authDTO.getPermission() == 1 ;	
 			}
 		}
 		return false;

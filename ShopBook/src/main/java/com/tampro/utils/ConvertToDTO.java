@@ -1,9 +1,7 @@
 package com.tampro.utils;
 
 import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -11,11 +9,15 @@ import com.tampro.dto.AddressDTO;
 import com.tampro.dto.AuthDTO;
 import com.tampro.dto.AuthorDTO;
 import com.tampro.dto.CategoryDTO;
+import com.tampro.dto.HistoryDTO;
+import com.tampro.dto.InvoiceDTO;
 import com.tampro.dto.MenuDTO;
 import com.tampro.dto.OrderDTO;
 import com.tampro.dto.OrderDetailDTO;
+import com.tampro.dto.ProductInStockDTO;
 import com.tampro.dto.ProductInfoDTO;
 import com.tampro.dto.PublisherDTO;
+import com.tampro.dto.ReviewDTO;
 import com.tampro.dto.RoleDTO;
 import com.tampro.dto.ShipmentDetailsDTO;
 import com.tampro.dto.UserDTO;
@@ -25,11 +27,15 @@ import com.tampro.entity.Address;
 import com.tampro.entity.Auth;
 import com.tampro.entity.Author;
 import com.tampro.entity.Category;
+import com.tampro.entity.History;
+import com.tampro.entity.Invoice;
 import com.tampro.entity.Menu;
 import com.tampro.entity.Order;
 import com.tampro.entity.OrderDetail;
+import com.tampro.entity.ProductInStock;
 import com.tampro.entity.ProductInfo;
 import com.tampro.entity.Publisher;
+import com.tampro.entity.Reviews;
 import com.tampro.entity.Role;
 import com.tampro.entity.ShipmentDetails;
 import com.tampro.entity.User;
@@ -63,6 +69,20 @@ public class ConvertToDTO {
 		authorDTO.setUpdateDate(author.getUpdateDate());
 		authorDTO.setUrl(author.getUrl());
 		return authorDTO;
+	}
+	public static ReviewDTO convertReviewEntity(Reviews reviews) {
+		ReviewDTO reviewDTO = new ReviewDTO();
+		reviewDTO.setActiveFlag(reviews.getActiveFlag());
+		reviewDTO.setContent(reviews.getContent());
+		reviewDTO.setCreateDate(reviews.getCreateDate());
+		reviewDTO.setEmail(reviews.getEmail());
+		reviewDTO.setId(reviews.getId());
+		reviewDTO.setName(reviews.getName());
+		reviewDTO.setIdProduct(reviews.getProductInfo().getId());
+		reviewDTO.setRating(reviews.getRating());
+		reviewDTO.setUpdateDate(reviews.getUpdateDate());
+		reviewDTO.setIdUser(reviews.getUser().getId());
+		return reviewDTO;
 	}
 	public static AddressDTO convertAddressEntity(Address address) {
 		AddressDTO addressDTO= new AddressDTO();
@@ -189,7 +209,6 @@ public class ConvertToDTO {
 		PublisherDTO publisherDTO = convertPublisherEntity(productinfo.getPublisher());
 		productInfoDTO.setPublisherDTO(publisherDTO);
 		productInfoDTO.setSize(productinfo.getSize());
-		productInfoDTO.setStatus(productinfo.getStatus());
 		productInfoDTO.setUpdateDate(productinfo.getUpdateDate());
 		productInfoDTO.setUrl(productinfo.getUrl());
 		return productInfoDTO;
@@ -220,12 +239,6 @@ public class ConvertToDTO {
 		orderDTO.setTotalPrice(order.getTotalPrice());
 		orderDTO.setUpdateDate(order.getUpdateDate());
 		orderDTO.setVat(order.getVat());
-		List<OrderDetailDTO> listDetailDTOs = new ArrayList<OrderDetailDTO>();
-		for(OrderDetail  orderDetail : order.getOrderDetails()) {
-			OrderDetailDTO orderDetailDTO = convertOrderDetailEntity(orderDetail);
-			listDetailDTOs.add(orderDetailDTO);
-		}
-		orderDTO.setListDetailDTOs(listDetailDTOs);	
 		return orderDTO;
 		
 	}
@@ -258,6 +271,49 @@ public class ConvertToDTO {
 		shipmentDetailsDTO.setProvince(shipmentDetails.getProvince());
 		shipmentDetailsDTO.setUpdateDate(shipmentDetails.getUpdateDate());
 		return shipmentDetailsDTO;
+	}
+	public static ProductInStockDTO convertProductInStockEntity(ProductInStock ProductInStock) {
+		ProductInStockDTO productInStockDTO = new ProductInStockDTO();
+		productInStockDTO.setActiveFlag(ProductInStock.getActiveFlag());
+		productInStockDTO.setCreateDate(ProductInStock.getCreateDate());
+		productInStockDTO.setId(ProductInStock.getId());
+		productInStockDTO.setIdProduct(ProductInStock.getProductInfo().getId());
+		productInStockDTO.setQuantity(ProductInStock.getQuantity());
+		productInStockDTO.setUpdateDate(ProductInStock.getUpdateDate());
+		return productInStockDTO;
+	}
+	public static HistoryDTO convertHistoryEntity(History history) {
+		HistoryDTO historyDTO = new HistoryDTO();
+		historyDTO.setActionName(history.getActionName());
+		historyDTO.setActiveFlag(history.getActiveFlag());
+		historyDTO.setCreateDate(history.getCreateDate());
+		historyDTO.setId(history.getId());
+		historyDTO.setPrice(history.getPrice());
+		ProductInfoDTO productInfoDTO = convertProducInfoEntity(history.getProductInfo());
+		historyDTO.setProductInfoDTO(productInfoDTO);
+		historyDTO.setQuantity(history.getQuantity());
+		historyDTO.setTotalPrice(history.getTotalPrice());
+		historyDTO.setType(history.getType());
+		historyDTO.setUpdateDate(history.getUpdateDate());
+		UserDTO userDTO = convertUserEntity(history.getUser());
+		historyDTO.setUserDTO(userDTO);
+		return historyDTO;
+	}
+	public static InvoiceDTO convertInvoiceEntity(Invoice invoice) {
+		InvoiceDTO invoiceDTO = new InvoiceDTO();
+		invoiceDTO.setActiveFlag(invoice.getActiveFlag());
+		invoiceDTO.setCreateDate(invoice.getCreateDate());
+		invoiceDTO.setId(invoice.getId());
+		invoiceDTO.setPrice(invoice.getPrice());
+		ProductInfoDTO productInfoDTO = convertProducInfoEntity(invoice.getProductInfo());
+		invoiceDTO.setProductInfoDTO(productInfoDTO);
+		invoiceDTO.setQuantity(invoice.getQuantity());
+		invoiceDTO.setTotalPrice(invoice.getTotalPrice());
+		invoiceDTO.setType(invoice.getType());
+		invoiceDTO.setUpdateDate(invoice.getUpdateDate());
+		UserDTO userDTO = convertUserEntity(invoice.getUser());
+		invoiceDTO.setUserDTO(userDTO);
+		return invoiceDTO;
 	}
 	public static String removeAccent(String url) {
 		String temp = Normalizer.normalize(url, Normalizer.Form.NFD);

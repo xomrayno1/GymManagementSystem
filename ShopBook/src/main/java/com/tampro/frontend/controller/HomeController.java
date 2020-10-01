@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tampro.dto.CategoryDTO;
 import com.tampro.dto.Paging;
+import com.tampro.dto.ProductInStockDTO;
 import com.tampro.dto.ProductInfoDTO;
 import com.tampro.dto.UserDTO;
+import com.tampro.entity.ProductInStock;
 import com.tampro.service.CategoryService;
+import com.tampro.service.ProductInStockService;
 import com.tampro.service.ProductInfoService;
 import com.tampro.validator.LoginValidator;
 
@@ -38,6 +41,8 @@ public class HomeController {
 	ProductInfoService productInfoService;
 	@Autowired
 	LoginValidator loginValidator;
+	@Autowired
+	ProductInStockService productInStockService;
 	
 	@RequestMapping(value = {"/","/index"})
 	public String home(Model model) {
@@ -49,7 +54,10 @@ public class HomeController {
 		System.out.println(url);
 		List<ProductInfoDTO> infoDTOs = productInfoService.getAllByProperty("url", url);
 		if(infoDTOs !=null && !infoDTOs.isEmpty()) {
-			model.addAttribute("product",infoDTOs.get(0));
+			ProductInfoDTO infoDTO = infoDTOs.get(0);
+			ProductInStockDTO productInStockDTO = 	productInStockService.findByProperty("productInfo.id", infoDTO.getId());
+			infoDTO.setProductInStockDTO(productInStockDTO);
+			model.addAttribute("product",infoDTO);
 			return "product-detail";
 		}
 		return "product-detail";
@@ -77,7 +85,7 @@ public class HomeController {
 			@RequestParam( name = "sort",required = false) String sort ,
 			@RequestParam(name = "trang",defaultValue = "1",required = false) int page) {
 		
-		Paging paging = new Paging(24);
+		Paging paging = new Paging(1);
 		paging.setPageIndex(page);		
 		ProductInfoDTO infoDTO = new  ProductInfoDTO();
 		infoDTO.setName(search);

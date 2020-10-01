@@ -9,8 +9,8 @@ public class OrderDTO {
 	private int idUser;
 	private ShipmentDetailsDTO shipmentDetails;
 	private BigDecimal totalPrice;
-	private int vat;
-	private int sales;
+	private int vat ;
+	private int sales ;
 	private int status;
 	private BigDecimal subTotal;
 	private Date createDate;
@@ -19,6 +19,7 @@ public class OrderDTO {
 	private List<OrderDetailDTO> listDetailDTOs;
 	private Date dateTo;
 	private Date dateFrom;
+	private int  checkbox[];
 	
 	public int getId() {
 		return id;
@@ -110,6 +111,12 @@ public class OrderDTO {
 	}
 	public void setDateFrom(Date dateFrom) {
 		this.dateFrom = dateFrom;
+	}
+	public int[] getCheckbox() {
+		return checkbox;
+	}
+	public void setCheckbox(int[] checkbox) {
+		this.checkbox = checkbox;
 	}
 	
 	

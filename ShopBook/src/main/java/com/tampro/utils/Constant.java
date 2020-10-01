@@ -11,7 +11,12 @@ public class Constant {
 	public static final int CANCEL = 1;
 	public static final int COMPLETED = 2;
 	public static final int PROCESSING = 3;
-	public static final int DELIVERED = 4;
-	public static final int OUT_OF_STOCK = 5;
-	public static final int IN_STOCK = 6;
+	public static final int SHIPPING = 4;
+	public static final int DELIVERED = 5;
+	public static final int OUT_OF_STOCK = 6;
+	public static final int IN_STOCK = 7;
+	public static final int GOODS_RECEIPT = 1;
+	public static final int GOODS_ISSUE = 2;
+	public static final String ACTION_ADD = "Add";
+	public static final String ACTION_EDIT = "Edit";
 }

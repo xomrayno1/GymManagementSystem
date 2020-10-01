@@ -36,7 +36,6 @@ public class BaseDAOImpl<E>  implements BaseDAO<E>{
 		if(property !=null) {
 			query.append(" and  model."+property).append(" =:"+newStr);
 		}
-		
 		System.out.println("SQL : "+query.toString());
 		Query<E> queryStr = factory.getCurrentSession().createQuery(query.toString());
  		if(object !=null) {

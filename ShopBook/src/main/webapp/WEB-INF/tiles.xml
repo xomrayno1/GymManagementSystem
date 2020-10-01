@@ -61,8 +61,28 @@
 	<definition name="order-list" extends="front-end">
 		<put-attribute name="body" value="/WEB-INF/views/front-end/order/order-list.jsp"></put-attribute>
 	</definition>
+	<definition name="order-view" extends="front-end">
+		<put-attribute name="body" value="/WEB-INF/views/front-end/order/order-view.jsp"></put-attribute>
+	</definition>
 	
-	
+	<definition name="manage/issue-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/goods-issue/issue-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/issue-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/goods-issue/issue-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/receipt-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/goods-receipt/receipt-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/receipt-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/goods-receipt/receipt-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/order-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/order/order-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/order-view" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/order/order-view.jsp"></put-attribute>
+	</definition>
 	<definition name="manage/productInfo-list" extends="back-end">
 		<put-attribute name="body" value="/WEB-INF/views/back-end/product-info/productInfo-list.jsp"></put-attribute>
 	</definition>
@@ -86,6 +106,9 @@
 	</definition>
 	<definition name="manage/category-action" extends="back-end">
 		<put-attribute name="body" value="/WEB-INF/views/back-end/category/category-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/history-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/history/history-list.jsp"></put-attribute>
 	</definition>
 	<definition name="manage/access-denied" template="/WEB-INF/views/back-end/access-denied/access-denied.jsp"/>
 	<definition name="manage/login" template="/WEB-INF/views/back-end/login/login.jsp"/>

@@ -20,7 +20,6 @@ public class ProductInfo{
 	private String code;
 	private BigDecimal price;
 	private String description;
-	private int status; // dừng cung cấp hay còn cung cấp
 	private int pageNumber;
 	private Date dateOfPublication;
 	private String ISBN; // mã vạch
@@ -39,7 +38,6 @@ public class ProductInfo{
 	private Date updateDate;
 	private int activeFlag;
 	private String url;
-	
 	
 	
 	
@@ -82,12 +80,7 @@ public class ProductInfo{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
+
 	public int getPageNumber() {
 		return pageNumber;
 	}
@@ -160,6 +153,7 @@ public class ProductInfo{
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 
 	
 	

@@ -127,7 +127,6 @@ public class ProductInfoService {
 		productInfo.setPrice(productInfoDTO.getPrice());
 		productInfo.setPublisher(new Publisher(productInfoDTO.getIdPublisher()));
 		productInfo.setSize(productInfoDTO.getSize());
-		productInfo.setStatus(1);
 		productInfo.setUrl("/"+ConvertToDTO.removeAccent(productInfoDTO.getName()));
 		productInfo.setUpdateDate(new Date());
 		productInfoDAO.add(productInfo);
@@ -149,7 +148,6 @@ public class ProductInfoService {
 		productInfo.setPrice(productInfoDTO.getPrice());
 		productInfo.setPublisher(new Publisher(productInfoDTO.getIdPublisher()));
 		productInfo.setSize(productInfoDTO.getSize());
-		productInfo.setStatus(productInfoDTO.getStatus());
 		productInfo.setUpdateDate(new Date());
 		productInfo.setUrl(productInfoDTO.getUrl());
 		productInfoDAO.delete(productInfo);
@@ -177,7 +175,27 @@ public class ProductInfoService {
 		productInfo.setPrice(productInfoDTO.getPrice());
 		productInfo.setPublisher(new Publisher(productInfoDTO.getIdPublisher()));
 		productInfo.setSize(productInfoDTO.getSize());
-		productInfo.setStatus(productInfoDTO.getStatus() == 1 ? 0 : 1);
+		productInfo.setUpdateDate(new Date());
+		productInfo.setUrl(productInfoDTO.getUrl());
+		productInfoDAO.update(productInfo);
+	}
+	public	void updatePrice(ProductInfoDTO productInfoDTO) {
+		ProductInfo productInfo = new ProductInfo();
+		productInfo.setActiveFlag(productInfoDTO.getActiveFlag());
+		productInfo.setAuthor(new Author(productInfoDTO.getIdAuthor()));
+		productInfo.setCategory(new Category(productInfoDTO.getIdCategory()));
+		productInfo.setCode(productInfoDTO.getCode());
+		productInfo.setCreateDate(productInfoDTO.getCreateDate());
+		productInfo.setDateOfPublication(productInfoDTO.getDateOfPublication());
+		productInfo.setDescription(productInfoDTO.getDescription());
+		productInfo.setId(productInfoDTO.getId());
+		productInfo.setImgUrl(productInfoDTO.getImgUrl());
+		productInfo.setISBN(productInfoDTO.getISBN());
+		productInfo.setName(productInfoDTO.getName());
+		productInfo.setPageNumber(productInfoDTO.getPageNumber());
+		productInfo.setPrice(productInfoDTO.getPrice());
+		productInfo.setPublisher(new Publisher(productInfoDTO.getIdPublisher()));
+		productInfo.setSize(productInfoDTO.getSize());
 		productInfo.setUpdateDate(new Date());
 		productInfo.setUrl(productInfoDTO.getUrl());
 		productInfoDAO.update(productInfo);

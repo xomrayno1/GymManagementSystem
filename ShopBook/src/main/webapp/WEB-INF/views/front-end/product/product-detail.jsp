@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container">
 	 <div class="breadcrumb-area gray-bg">
             <div class="container">
@@ -34,7 +35,18 @@
                             </div>
                             <span><fmt:formatNumber value="${product.price}" type="currency"/></span>
                             <div class="in-stock">
-                                <p>Available: <span>In stock</span></p>
+                                <p>Available: 
+                                	<span>                                		
+                                		<c:choose>
+                                			<c:when test="${product.productInStockDTO.quantity != 0 && product.productInStockDTO != null }">
+                                				In stock
+                                			</c:when>
+                                			<c:otherwise>
+                                				Out of stock
+                                			</c:otherwise>
+                                		</c:choose>
+                                	</span>                                
+                                </p>
                             </div>
                             <p class="title-product">${product.description}</p>
                             <br/>
@@ -127,48 +139,11 @@
 			                            </div>
 			                        </div>
 			                        <div id="des-details3" class="tab-pane">
-			                            <div class="rattings-wrapper">
-			                                <div class="sin-rattings">
-			                                    <div class="star-author-all">
-			                                        <div class="ratting-star f-left">
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <span>(5)</span>
-			                                        </div>
-			                                        <div class="ratting-author f-right">
-			                                            <h3>tayeb rayed</h3>
-			                                            <span>12:24</span>
-			                                            <span>9 March 2018</span>
-			                                        </div>
-			                                    </div>
-			                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nost rud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nost.</p>
-			                                </div>
-			                                <div class="sin-rattings">
-			                                    <div class="star-author-all">
-			                                        <div class="ratting-star f-left">
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <i class="ion-star theme-color"></i>
-			                                            <span>(5)</span>
-			                                        </div>
-			                                        <div class="ratting-author f-right">
-			                                            <h3>farhana shuvo</h3>
-			                                            <span>12:24</span>
-			                                            <span>9 March 2018</span>
-			                                        </div>
-			                                    </div>
-			                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nost rud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nost.</p>
-			                                </div>
-			                            </div>
+
 			                            <div class="ratting-form-wrapper">
 			                                <h3>Add your Comments :</h3>
 			                                <div class="ratting-form">
-			                                    <form action="#">
+			                                    <form method="POST" id="submitForm" action='<c:url value="/api/review/add"></c:url>'>
 			                                        <div class="star-box">
 			                                            <h2>Rating:</h2>
 			                                            <div class="ratting-star">
@@ -182,17 +157,17 @@
 			                                        <div class="row">
 			                                            <div class="col-md-6">
 			                                                <div class="rating-form-style mb-20">
-			                                                    <input placeholder="Name" type="text">
+			                                                    <input placeholder="Name" type="text" id="name">
 			                                                </div>
 			                                            </div>
 			                                            <div class="col-md-6">
 			                                                <div class="rating-form-style mb-20">
-			                                                    <input placeholder="Email" type="text">
+			                                                    <input placeholder="Email" type="text" id="email">
 			                                                </div>
 			                                            </div>
 			                                            <div class="col-md-12">
 			                                                <div class="rating-form-style form-submit">
-			                                                    <textarea name="message" placeholder="Message"></textarea>
+			                                                    <textarea name="message" placeholder="Message" id="content"></textarea>
 			                                                    <input type="submit" value="add review">
 			                                                </div>
 			                                            </div>
@@ -200,6 +175,7 @@
 			                                    </form>
 			                                </div>
 			                            </div>
+			                            
 			                        </div>
 			                    </div>
 			                </div>
@@ -246,5 +222,86 @@
 	function addToCart(id){
 		var value = $('#qty').val();
 		location.href="<c:url value='/cart/add-to-cart?id='/>"+id+'&qty='+value;
-	}	
+	}
+	$(document).ready(function(){
+		loadReview();
+		$('#submitForm').submit(function(event){
+			var content = $('#content').val();
+			var name = $('#name').val();
+			var email = $('#email').val();
+			var json = {
+						'name' : name, 
+						'email' : email,
+						'content' : content						
+						};
+			$.ajax({
+				url : $('#submitForm').attr("action"),
+				data : JSON.stringify(json),
+				type : POST,
+				beforeSend: function(xhr) {
+		            xhr.setRequestHeader("Accept", "application/json");
+		            xhr.setRequestHeader("Content-Type", "application/json");
+		        },
+				success : function(){
+					loadReview();
+					console.log("success");
+				}
+			});
+		});
+	});
+	function loadReview(){
+		$.ajax({
+			url: "/ShopBook/api/review/3",
+			success : function(data){
+				for(var i = 0 ; i < data.length ; i++){
+					var str =  '<div  class="rattings-wrapper">';
+						str+=		'<div class="sin-rattings">'
+						str+=			'<div class="star-author-all">'
+						str+=				'<div class="ratting-star f-left">'
+						str+=					'<i class="ion-star theme-color"></i>'
+						str+=					'<i class="ion-star theme-color"></i>'
+						str+=					'<i class="ion-star theme-color"></i>'
+						str+=					'<i class="ion-star theme-color"></i>'
+						str+=					'<i class="ion-star theme-color"></i>'
+						str+=					'<span>(5)</span>'
+						str+=				'</div>'
+						str+=				'<div class="ratting-author f-right">'
+						str+=					'<h3>'+data[i].name+'</h3>'
+						str+=				'</div>'
+						str+=			'</div>'
+						str+=				'<p>'+data[i].content+'</p>'
+						str+=		'</div>'
+						str += '</div>'
+					$("#des-details3").prepend(str);
+				}				
+			}
+		});
+	}
 	</script>
+<!-- 
+			                    
+			  <div class="rattings-wrapper">
+					<div class="sin-rattings">
+	                    <div class="star-author-all">
+	                        <div class="ratting-star f-left">
+	                            <i class="ion-star theme-color"></i>
+	                            <i class="ion-star theme-color"></i>
+	                            <i class="ion-star theme-color"></i>
+	                            <i class="ion-star theme-color"></i>
+	                            <i class="ion-star theme-color"></i>
+	                            <span>(5)</span>
+	                        </div>
+	                        <div class="ratting-author f-right" id=title-review>
+	                           
+	                            	<h3>tayeb rayed</h3>
+	                            	<span>12:24</span>
+	                            	<span>9 March 2018</span>
+	                      
+	                        </div>
+	                    </div>
+	                    <div id="content-review">
+	                    	
+	                    </div>
+                </div>
+  		</div>
+ -->

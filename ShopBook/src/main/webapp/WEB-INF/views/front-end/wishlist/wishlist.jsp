@@ -59,18 +59,36 @@
 			                                </table>
 												 <nav aria-label="Page navigation example" style="margin-top: 20px;">
 													  <ul class="pagination">
-													    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-													     <c:forEach begin="1" end="${pageInfo.totalPage}" varStatus="i">
-														    	<c:choose>
-														    		<c:when test="${pageInfo.pageIndex == i.index}">
-														    			<li class="page-item active"><a class="page-link" href="javascript:void(0)">${i.index}</a></li>
-														    		</c:when>
-														    		<c:otherwise>
-														    			<li class="page-item"><a class="page-link" href='<c:url value="/account/wishlist/?page=${i.index}"></c:url>'>${i.index}</a></li>
-														    		</c:otherwise>
-														    	</c:choose>
-													    	</c:forEach>
-													    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+													  		<li class="page-item">
+															    <c:choose>
+															    	<c:when test="${pageInfo.pageIndex == 1}">
+															    		<a class="page-link" href="javascript:void(0)">Previous</a>
+															    	</c:when>
+															    	<c:otherwise>
+															    		<a class="page-link" href='<c:url value="/account/wishlist/?page=${pageInfo.pageIndex - 1}"></c:url>'>Previous</a>
+															    	</c:otherwise>
+															    </c:choose>
+														    </li>
+														     <c:forEach begin="1" end="${pageInfo.totalPage}" varStatus="i">
+															    	<c:choose>
+															    		<c:when test="${pageInfo.pageIndex == i.index}">
+															    			<li class="page-item active"><a class="page-link" href="javascript:void(0)">${i.index}</a></li>
+															    		</c:when>
+															    		<c:otherwise>
+															    			<li class="page-item"><a class="page-link" href='<c:url value="/account/wishlist/?page=${i.index}"></c:url>'>${i.index}</a></li>
+															    		</c:otherwise>
+															    	</c:choose>
+														    	</c:forEach>
+														    <li class="page-item">
+															    <c:choose>													    
+															    	<c:when test="${pageInfo.pageIndex == pageInfo.totalPage}">
+															    		<a class="page-link" href="javascript:void(0)">Next</a>
+															    	</c:when>
+															    	<c:otherwise>
+															    		<a class="page-link" href='<c:url value="/account/wishlist/?page=${pageInfo.pageIndex + 1}"></c:url>'>Next</a>
+															    	</c:otherwise>
+															    </c:choose>
+														    </li>
 													  </ul>
 												</nav>
 			                            </div>
@@ -82,3 +100,6 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+
+		</script>

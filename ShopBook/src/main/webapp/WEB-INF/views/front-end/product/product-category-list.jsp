@@ -69,7 +69,16 @@
                             <div class="pagination-total-pages">
                                 <div class="pagination-style">
                                     <ul>
-                                        <li><a class="prev-next prev" href="#"><i class="ion-ios-arrow-left"></i> Prev</a></li>     
+                                        <li>
+                                        	<c:choose>
+                                        		<c:when test="${pageInfo.pageIndex == 1}">
+                                        			<a class="prev-next prev" href="javascript:void(0)"><i class="ion-ios-arrow-left"></i> Prev</a>
+                                        		</c:when>
+                                        		<c:otherwise>
+                                        			<a class="prev-next prev" onclick="gotoPage(${pageInfo.pageIndex - 1})" href="javascript:void(0)"><i class="ion-ios-arrow-left"></i> Prev</a>
+                                        		</c:otherwise>
+                                        	</c:choose>
+										</li>     
                                         <c:forEach begin="1" end="${pageInfo.totalPage}" varStatus="i">
                                         	<c:choose>
                                         		<c:when test="${pageInfo.pageIndex == i.index}">
@@ -80,9 +89,16 @@
                                         		</c:otherwise>
                                         	</c:choose>
                                         </c:forEach>
-                                        <li><a href="#">...</a></li>
-                                        <li><a href="#">10</a></li>
-                                        <li><a class="prev-next next" href="#">Next<i class="ion-ios-arrow-right"></i> </a></li>
+                                        <li>
+                                        	<c:choose>
+                                        		<c:when test="${pageInfo.pageIndex == pageInfo.totalPage}">
+                                        			<a class="prev-next next" href="javascript:void(0)">Next<i class="ion-ios-arrow-right"></i> </a>
+                                        		</c:when>
+                                        		<c:otherwise>
+                                        			<a class="prev-next next" onclick="gotoPage(${pageInfo.pageIndex + 1})" href="javascript:void(0)">Next<i class="ion-ios-arrow-right"></i> </a>
+                                        		</c:otherwise>
+                                        	</c:choose>
+                                        </li>
                                     </ul>
                                 </div>
                                <!--  <div class="total-pages">

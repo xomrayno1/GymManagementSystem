@@ -11,7 +11,6 @@ public class ProductInfoDTO {
 	private String code;
 	private BigDecimal price;
 	private String description;
-	private int status; // dừng cung cấp hay còn cung cấp
 	private int pageNumber;
 	private Date dateOfPublication;
 	private String ISBN; // mã vạch
@@ -27,6 +26,7 @@ public class ProductInfoDTO {
 	private int idAuthor;
 	private int idPublisher;
 	private int idCategory;
+	private ProductInStockDTO productInStockDTO;
 	
 	private String url;
 	
@@ -60,12 +60,8 @@ public class ProductInfoDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
+
+
 	public int getPageNumber() {
 		return pageNumber;
 	}
@@ -162,7 +158,13 @@ public class ProductInfoDTO {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+	public ProductInStockDTO getProductInStockDTO() {
+		return productInStockDTO;
+	}
+	public void setProductInStockDTO(ProductInStockDTO productInStockDTO) {
+		this.productInStockDTO = productInStockDTO;
+	}
+
 	
 	
 	

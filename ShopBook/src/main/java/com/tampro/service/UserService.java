@@ -114,6 +114,7 @@ public class UserService {
 		}
 		return list;	
 	}
+
 	public UserDTO findById(int id) {
 		User user = userDAO.findById(User.class, id);
 		UserDTO userDTO = ConvertToDTO.convertUserEntity(user);

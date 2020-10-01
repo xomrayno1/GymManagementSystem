@@ -5,3 +5,10 @@ p.title-product {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+.status-content {
+    padding: 3px;
+    background: #e6e644;
+    text-align: center;
+    margin: 0px;
+    color: #243826;
+}

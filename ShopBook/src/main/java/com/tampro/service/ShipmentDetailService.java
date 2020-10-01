@@ -41,9 +41,31 @@ public class ShipmentDetailService {
 		return shipmentDetailDAO.addInt(shipmentDetails);
 	}
 	public void update(ShipmentDetailsDTO shipmentDetailsDTO) {
-		
+		ShipmentDetails shipmentDetails = new ShipmentDetails();
+		shipmentDetails.setActiveFlag(shipmentDetailsDTO.getActiveFlag());
+		shipmentDetails.setCommune(shipmentDetailsDTO.getCommune());
+		shipmentDetails.setCreateDate( shipmentDetailsDTO.getCreateDate());
+		shipmentDetails.setDescription(shipmentDetailsDTO.getDescription());
+		shipmentDetails.setDistrict(shipmentDetailsDTO.getDistrict());
+		shipmentDetails.setPhone(shipmentDetailsDTO.getPhone());
+		shipmentDetails.setName(shipmentDetailsDTO.getName());
+		shipmentDetails.setProvince(shipmentDetailsDTO.getProvince());
+		shipmentDetails.setUpdateDate(new Date());
+		shipmentDetails.setUser(new User(shipmentDetailsDTO.getIdUser()));
+		shipmentDetailDAO.update(shipmentDetails);
 	}
 	public void delete(ShipmentDetailsDTO shipmentDetailsDTO) {
-		
+		ShipmentDetails shipmentDetails = new ShipmentDetails();
+		shipmentDetails.setActiveFlag(0);
+		shipmentDetails.setCommune(shipmentDetailsDTO.getCommune());
+		shipmentDetails.setCreateDate( shipmentDetailsDTO.getCreateDate());
+		shipmentDetails.setDescription(shipmentDetailsDTO.getDescription());
+		shipmentDetails.setDistrict(shipmentDetailsDTO.getDistrict());
+		shipmentDetails.setPhone(shipmentDetailsDTO.getPhone());
+		shipmentDetails.setName(shipmentDetailsDTO.getName());
+		shipmentDetails.setProvince(shipmentDetailsDTO.getProvince());
+		shipmentDetails.setUpdateDate(new Date());
+		shipmentDetails.setUser(new User(shipmentDetailsDTO.getIdUser()));
+		shipmentDetailDAO.delete(shipmentDetails);
 	}
 }

@@ -64,20 +64,43 @@
                             <div class="pagination-total-pages">
                                 <div class="pagination-style">
                                     <ul>
-                                        <li><a class="prev-next prev" href="#"><i class="ion-ios-arrow-left"></i> Prev</a></li>     
-                                        <c:forEach begin="1" end="${pageInfo.totalPage}" varStatus="i">
+                                        <li>
                                         	<c:choose>
-                                        		<c:when test="${pageInfo.pageIndex == i.index}">
-                                        		 	<li><a class="active" href="javascript:void(0)">${i.index}</a></li>
+                                        		<c:when test="${pageInfo.pageIndex == 1}">
+                                        			<a class="prev-next prev" href="javascript:void(0)"><i class="ion-ios-arrow-left"></i> Prev</a>
                                         		</c:when>
                                         		<c:otherwise>
-                                        		 <li><a  onclick="gotoPage(${i.index})">${i.index}</a></li>
+                                        			<a class="prev-next prev" onclick="gotoPage(${pageInfo.pageIndex - 1})" href="javascript:void(0)"><i class="ion-ios-arrow-left"></i> Prev</a>
                                         		</c:otherwise>
                                         	</c:choose>
-                                        </c:forEach>
-                                        <li><a href="#">...</a></li>
-                                        <li><a href="#">10</a></li>
-                                        <li><a class="prev-next next" href="#">Next<i class="ion-ios-arrow-right"></i> </a></li>
+                                        </li>     
+                                        <c:forEach begin="1" end="${pageInfo.totalPage}" varStatus="i">
+                                        	<li>
+	                                        	<c:choose>
+	                                        		<c:when test="${pageInfo.pageIndex == i.index}">
+	                                        		 	<a class="active" href="javascript:void(0)">${i.index}</a>
+	                                        		</c:when>
+	                                        		<c:otherwise>
+	                                        			<a  onclick="gotoPage(${i.index})">${i.index}</a>
+	                                        		</c:otherwise>                                     		
+	                                        	</c:choose>
+                                        	</li>
+                                        </c:forEach>	
+                                       
+                                        <c:if test="${pageInfo.totalPage - pageInfo.pageIndex  > 3}">
+                                         	<li><a href="#">...</a></li>
+                                        	<li><a href="#">${pageInfo.totalPage}</a></li>
+                                        </c:if>
+                                        <li>
+                                        	<c:choose>
+                                        		<c:when test="${pageInfo.pageIndex == pageInfo.totalPage  }">
+                                        			<a class="prev-next next" href="javascript:void(0)">Next<i class="ion-ios-arrow-right"></i> </a>
+                                        		</c:when>
+                                        		<c:otherwise>
+                                        			<a class="prev-next next" onclick="gotoPage(${pageInfo.pageIndex + 1})" href="javascript:void(0)">Next<i class="ion-ios-arrow-right"></i> </a>
+                                        		</c:otherwise>
+                                        	</c:choose>
+                                        </li>
                                     </ul>
                                 </div>
                                <!--  <div class="total-pages">
@@ -153,10 +176,5 @@
         	$("#searchForm").append('<input type="hidden" name="trang" value='+page+'>')
         	$("#searchForm").submit();  
         }
-       
-        $(document).ready(function(){
-        	
-        });
-        
 		</script>
         
