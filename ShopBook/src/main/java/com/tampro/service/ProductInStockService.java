@@ -1,6 +1,5 @@
 package com.tampro.service;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.tampro.dao.ProductInStockDAO;
 import com.tampro.dto.InvoiceDTO;
 import com.tampro.dto.ProductInStockDTO;
-import com.tampro.dto.ProductInfoDTO;
 import com.tampro.entity.ProductInStock;
 import com.tampro.entity.ProductInfo;
 import com.tampro.utils.Constant;
@@ -50,6 +48,8 @@ public class ProductInStockService {
 				inStock.setProductInfo(new ProductInfo(invoiceDTO.getIdProduct()));
 				inStock.setCreateDate(new Date());
 				inStock.setActiveFlag(1);
+				inStock.setPrice(productInStockDTO.getPrice());
+				inStock.setId(productInStockDTO.getId());
 				productInStockDAO.update(inStock);
 			}
 		}

@@ -75,7 +75,6 @@
                         	<td>${item.userDTO.name}</td>
                         	<td>${item.createDate}</td>                         	
                             <td colspan="3" class="last text-center">
-                            	
 	                            <a href='<c:url value="/manage/goods-receipt/view/${item.id}"></c:url>' class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> 
 	                            <a href='<c:url value="/manage/goods-receipt/edit/${item.id}"></c:url>' class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a> 
                             </td>                  

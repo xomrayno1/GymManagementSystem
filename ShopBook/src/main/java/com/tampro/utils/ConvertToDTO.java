@@ -309,6 +309,7 @@ public class ConvertToDTO {
 		invoiceDTO.setProductInfoDTO(productInfoDTO);
 		invoiceDTO.setQuantity(invoice.getQuantity());
 		invoiceDTO.setTotalPrice(invoice.getTotalPrice());
+		invoiceDTO.setIdProduct(invoice.getProductInfo().getId());
 		invoiceDTO.setType(invoice.getType());
 		invoiceDTO.setUpdateDate(invoice.getUpdateDate());
 		UserDTO userDTO = convertUserEntity(invoice.getUser());

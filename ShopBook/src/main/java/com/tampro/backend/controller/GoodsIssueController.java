@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tampro.dto.InvoiceDTO;
 import com.tampro.dto.Paging;
 import com.tampro.dto.ProductInfoDTO;
+import com.tampro.dto.UserDTO;
 import com.tampro.service.InvoiceService;
 import com.tampro.service.ProductInfoService;
 import com.tampro.utils.Constant;
@@ -69,6 +70,7 @@ public class GoodsIssueController {
 	public String addInvoice(Model model) {
 		model.addAttribute("title", "Add");
 		model.addAttribute("submitForm", new InvoiceDTO());
+		model.addAttribute("viewOnly", false);
 		initSelect(model);
 		return "manage/issue-action";
 	}
@@ -82,6 +84,7 @@ public class GoodsIssueController {
 				model.addAttribute("title", "Add");
 				initSelect(model);	
 			}
+			model.addAttribute("viewOnly", false);
 			return "manage/issue-action";
 		}
 		if(invoiceDTO.getId() != 0) {
@@ -91,17 +94,19 @@ public class GoodsIssueController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				session.setAttribute(Constant.MSG_SUCCESS,"Cập nhật thất bại");
+				session.setAttribute(Constant.MSG_ERROR,"Cập nhật thất bại");
 			}
 		}else {
 			try {
+				UserDTO userDTO = (UserDTO) session.getAttribute(Constant.USER_INFO);
+				invoiceDTO.setUserDTO(userDTO);
 				invoiceDTO.setType(Constant.GOODS_ISSUE);
 				invoiceService.add(invoiceDTO);
 				session.setAttribute(Constant.MSG_SUCCESS,"Thêm thành công");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				session.setAttribute(Constant.MSG_SUCCESS,"Thêm thất bại");
+				session.setAttribute(Constant.MSG_ERROR,"Thêm thất bại");
 			}
 		}
 		return "redirect:/manage/goods-issue/list/1";
@@ -111,6 +116,7 @@ public class GoodsIssueController {
 		InvoiceDTO invoiceDTO = invoiceService.findById(id);
 		model.addAttribute("title", "Edit");
 		model.addAttribute("submitForm", invoiceDTO);
+		model.addAttribute("viewOnly", false);
 		initSelect(model);
 		return "manage/issue-action";
 	}
@@ -119,6 +125,7 @@ public class GoodsIssueController {
 		InvoiceDTO invoiceDTO = invoiceService.findById(id);
 		model.addAttribute("title", "View");
 		model.addAttribute("submitForm", invoiceDTO);
+		model.addAttribute("viewOnly", true);
 		return "manage/issue-action";
 	}
 	public void initSelect(Model model) {

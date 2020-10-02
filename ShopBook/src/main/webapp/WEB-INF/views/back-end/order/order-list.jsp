@@ -70,8 +70,6 @@
 		
 	<div class="table-responsive">
 	<a href='<c:url value="/manage/order/add"></c:url>'><button class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Tạo hóa đơn </button></a>
-	<a href='<c:url value="#"></c:url>'><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Xóa đơn </button></a>
-	<a href='<c:url value="#"></c:url>'><button class="btn btn-default"><i style="color: red" class="glyphicon glyphicon-trash"></i> Lịch sử xóa </button></a>
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">

@@ -64,6 +64,7 @@
                             <th class="column-title">#</th>
                             <th class="column-title">Id</th>
                             <th class="column-title">Action Name</th>
+                            <th class="column-title">Kiểu</th>
                             <th class="column-title">Tên sản phẩm</th>
                             <th class="column-title">Đơn giá</th>
                             <th class="column-title">Số lượng</th>
@@ -79,6 +80,16 @@
                             <td>${pageInfo.offSet + i.index + 1} </td>
                             <td>${item.id}</td>
                             <td>${item.actionName}</td>
+                            <td>
+                            	<c:choose>
+                            		<c:when test="${item.type == 1}">
+                            			Nhập hàng
+                            		</c:when>
+                            		<c:otherwise>
+                            			Xuất hàng
+                            		</c:otherwise>
+                            	</c:choose>
+                            </td>
                         	<td>${item.productInfoDTO.name}</td>
                         	<td>${item.price}</td>
                         	<td>${item.quantity}</td> 

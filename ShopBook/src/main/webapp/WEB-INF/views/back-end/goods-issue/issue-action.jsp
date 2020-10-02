@@ -23,11 +23,18 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Chọn sản phẩm<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">												
-												<form:select path="idProduct" cssClass="form-control">
-													<c:forEach items="${listProduct}" var="product">
-														<form:option value="${product.id}">${product.name}</form:option>
-													</c:forEach>	
-												</form:select>
+												<c:choose>
+													<c:when test="${!viewOnly}">
+														<form:select path="idProduct" cssClass="form-control">
+															<c:forEach items="${listProduct}" var="product">
+																<form:option value="${product.id}">${product.name}</form:option>
+															</c:forEach>	
+														</form:select>
+													</c:when>
+													<c:otherwise>
+														<form:input path="productInfoDTO.name" cssClass="form-control"	readonly="${viewOnly}"/>
+													</c:otherwise>
+												</c:choose>
 											</div>
 										</div>
 										<div class="item form-group">

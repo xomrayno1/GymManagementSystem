@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import com.tampro.dto.OrderDetailDTO;
 import com.tampro.dto.Paging;
 import com.tampro.service.OrderDetailService;
 import com.tampro.service.OrderService;
+import com.tampro.utils.Constant;
 
 @Controller
 @RequestMapping("/manage/order")
@@ -90,7 +93,7 @@ public class ManageOrderController {
 	}
 	@GetMapping("/update-status/{id}")
 	public String updateStatus(Model model,@PathVariable("id")int id,@RequestParam("status") int status) {
-		OrderDTO orderDTO = orderService.getById("id", id);
+		OrderDTO orderDTO = orderService.getById("id", id);	
 		orderDTO.setStatus(status);
 		try {
 			orderService.update(orderDTO);
