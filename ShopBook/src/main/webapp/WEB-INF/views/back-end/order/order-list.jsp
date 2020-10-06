@@ -73,7 +73,6 @@
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
-                            <th class="column-title"><input type="checkbox" name="all"></th>
                             <th class="column-title">#</th>
                             <th class="column-title text-center">Mã đơn hàng</th>
                             <th class="column-title">Tình trạng</th>
@@ -87,11 +86,6 @@
                         <tbody>
                           <c:forEach items="${list}" var="item" varStatus="i"> 
                           	<tr>
-                          	<td>
-                          		<form:form	modelAttribute="deleteForm" action="POST" servletRelativeAction="#">
-                          			<form:checkbox path="checkbox" value="${item.id}"/>
-                          		</form:form>
-                          	</td>
                             <td>${pageInfo.offSet + i.index + 1} </td>
                             <td class="text-center"><a href='<c:url value="/manage/order/view/${item.id}"></c:url>'>${item.id}</a></td>
                             <td >

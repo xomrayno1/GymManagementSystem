@@ -44,5 +44,6 @@ public class ReviewsService {
 		if(reviewDTO.getIdUser() != 0) {
 			reviews.setUser(new User(reviewDTO.getIdUser()));
 		}
+		reviewsDAO.add(reviews);
 	}
 }

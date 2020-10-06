@@ -53,7 +53,11 @@ public class OrderDetailService {
 		orderDetail.setId(orderDetail.getId());
 		orderDetail.setOrder(new Order(orderDetailDTO.getIdOrder()));
 		orderDetail.setPrice(orderDetailDTO.getPrice());
-		orderDetail.setProductInfo(new ProductInfo(orderDetailDTO.getProductInfoDTO().getId()));
+		if(orderDetailDTO.getProductInfoDTO() != null) {
+			orderDetail.setProductInfo(new ProductInfo(orderDetailDTO.getProductInfoDTO().getId()));
+		}else {
+			orderDetail.setProductInfo(new ProductInfo(orderDetailDTO.getIdProduct()));
+		}
 		orderDetail.setQuantity(orderDetailDTO.getQuantity());
 		orderDetail.setTotalPrice(orderDetailDTO.getTotalPrice());
 		orderDetail.setUpdateDate(new Date());

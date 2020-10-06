@@ -65,6 +65,18 @@
 		<put-attribute name="body" value="/WEB-INF/views/front-end/order/order-view.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="manage/user-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/user/user-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/user-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/user/user-action.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/role-list" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/role/role-list.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/role-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/role/role-action.jsp"></put-attribute>
+	</definition>
 	<definition name="manage/issue-list" extends="back-end">
 		<put-attribute name="body" value="/WEB-INF/views/back-end/goods-issue/issue-list.jsp"></put-attribute>
 	</definition>
@@ -82,6 +94,9 @@
 	</definition>
 	<definition name="manage/order-view" extends="back-end">
 		<put-attribute name="body" value="/WEB-INF/views/back-end/order/order-view.jsp"></put-attribute>
+	</definition>
+	<definition name="manage/order-action" extends="back-end">
+		<put-attribute name="body" value="/WEB-INF/views/back-end/order/order-action.jsp"></put-attribute>
 	</definition>
 	<definition name="manage/productInfo-list" extends="back-end">
 		<put-attribute name="body" value="/WEB-INF/views/back-end/product-info/productInfo-list.jsp"></put-attribute>

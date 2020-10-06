@@ -16,6 +16,7 @@ public class UserDTO {
 	private int activeFlag;
 	private Set<UserRoleDTO> userRoleDTOs;
 	private int idRole;
+	private RoleDTO roleDTO;
 
 	public int getId() {
 		return id;
@@ -88,6 +89,12 @@ public class UserDTO {
 	}
 	public void setIdRole(int idRole) {
 		this.idRole = idRole;
+	}
+	public RoleDTO getRoleDTO() {
+		return roleDTO;
+	}
+	public void setRoleDTO(RoleDTO roleDTO) {
+		this.roleDTO = roleDTO;
 	}
 	
 	

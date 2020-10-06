@@ -81,7 +81,9 @@ public class ConvertToDTO {
 		reviewDTO.setIdProduct(reviews.getProductInfo().getId());
 		reviewDTO.setRating(reviews.getRating());
 		reviewDTO.setUpdateDate(reviews.getUpdateDate());
-		reviewDTO.setIdUser(reviews.getUser().getId());
+		if(reviews.getUser() != null) {
+			reviewDTO.setIdUser(reviews.getUser().getId());
+		}
 		return reviewDTO;
 	}
 	public static AddressDTO convertAddressEntity(Address address) {
@@ -116,7 +118,10 @@ public class ConvertToDTO {
 			UserRoleDTO dto = convertUserRoleEntity(userRole);
 			userRoleDTOs.add(dto);
 		}
+		RoleDTO roleDTO = convertRoleEntity(user.getUserRole().iterator().next().getRole());
+		userDTO.setRoleDTO(roleDTO);
 		userDTO.setUserRoleDTOs(userRoleDTOs);
+		userDTO.setIdRole(user.getUserRole().iterator().next().getRole().getId());
 		return userDTO;
 	}
 	public static UserRoleDTO convertUserRoleEntity(UserRole userRole) {

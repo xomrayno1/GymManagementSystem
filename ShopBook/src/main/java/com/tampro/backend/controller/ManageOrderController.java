@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,9 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tampro.dto.OrderDTO;
 import com.tampro.dto.OrderDetailDTO;
 import com.tampro.dto.Paging;
+import com.tampro.dto.ProductInfoDTO;
 import com.tampro.service.OrderDetailService;
 import com.tampro.service.OrderService;
-import com.tampro.utils.Constant;
+import com.tampro.service.ProductInfoService;
 
 @Controller
 @RequestMapping("/manage/order")
@@ -35,7 +34,8 @@ public class ManageOrderController {
 	OrderService orderService;
 	@Autowired
 	OrderDetailService orderDetailService;
-	
+	@Autowired
+	ProductInfoService productInfoService;
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
 		if(dataBinder.getTarget() == null) {
@@ -79,6 +79,12 @@ public class ManageOrderController {
 			return "redirect:/manage/order/list/1";
 		}
 	}
+	@GetMapping("/add")
+	public String orderAdd(Model model) {
+		model.addAttribute("submitForm", new OrderDTO());
+		initSelect(model);
+		return "manage/order-action";
+	}
 
 	@GetMapping("/detail/delete/{id}")
 	public String orderDeleteDetail(Model model,@PathVariable("id")int id) {
@@ -103,5 +109,16 @@ public class ManageOrderController {
 		}
 		return "redirect:/manage/order/view/"+id;
 	}
-	
+	public void initSelect(Model model) {
+		List<ProductInfoDTO> list = productInfoService.getAll(null, null);
+		Collections.sort(list,new Comparator<ProductInfoDTO>() {
+
+			@Override
+			public int compare(ProductInfoDTO o1, ProductInfoDTO o2) {
+				// TODO Auto-generated method stub
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		model.addAttribute("listProduct", list);
+	}
 }

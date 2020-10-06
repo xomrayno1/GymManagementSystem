@@ -143,7 +143,7 @@
 			                            <div class="ratting-form-wrapper">
 			                                <h3>Add your Comments :</h3>
 			                                <div class="ratting-form">
-			                                    <form method="POST" id="submitForm" action='<c:url value="/api/review/add"></c:url>'>
+			                                    <form id="submitForm" action='<c:url value="/api/review/add"></c:url>' method="POST">
 			                                        <div class="star-box">
 			                                            <h2>Rating:</h2>
 			                                            <div class="ratting-star">
@@ -155,20 +155,23 @@
 			                                            </div>
 			                                        </div>
 			                                        <div class="row">
-			                                            <div class="col-md-6">
-			                                                <div class="rating-form-style mb-20">
-			                                                    <input placeholder="Name" type="text" id="name">
-			                                                </div>
-			                                            </div>
-			                                            <div class="col-md-6">
-			                                                <div class="rating-form-style mb-20">
-			                                                    <input placeholder="Email" type="text" id="email">
-			                                                </div>
-			                                            </div>
+			                                            <c:if test="${userInfo == null}">
+				                                            <div class="col-md-6">
+				                                                <div class="rating-form-style mb-20">
+				                                                    <input placeholder="name" type="text" id="name">
+				                                                </div>
+				                                            </div>
+				                                            <div class="col-md-6">
+				                                                <div class="rating-form-style mb-20">
+				                                                    <input placeholder="email" type="text" id="email">
+				                                                </div>
+				                                            </div>
+			                                            </c:if>
 			                                            <div class="col-md-12">
 			                                                <div class="rating-form-style form-submit">
-			                                                    <textarea name="message" placeholder="Message" id="content"></textarea>
-			                                                    <input type="submit" value="add review">
+			                                                	<input type="hidden" value="${product.id}" id="idProduct">
+			                                                    <textarea name="content" placeholder="Message" id="content"></textarea>
+			                                                    <input type="submit"  id="submit_btn" value="add review">
 			                                                </div>
 			                                            </div>
 			                                        </div>
@@ -224,34 +227,40 @@
 		location.href="<c:url value='/cart/add-to-cart?id='/>"+id+'&qty='+value;
 	}
 	$(document).ready(function(){
-		loadReview();
-		$('#submitForm').submit(function(event){
-			var content = $('#content').val();
-			var name = $('#name').val();
-			var email = $('#email').val();
-			var json = {
-						'name' : name, 
-						'email' : email,
-						'content' : content						
-						};
-			$.ajax({
-				url : $('#submitForm').attr("action"),
-				data : JSON.stringify(json),
-				type : POST,
-				beforeSend: function(xhr) {
-		            xhr.setRequestHeader("Accept", "application/json");
-		            xhr.setRequestHeader("Content-Type", "application/json");
-		        },
-				success : function(){
-					loadReview();
-					console.log("success");
-				}
+		loadReview();		
+			$("#submitForm").submit(function(e) {
+				var name = $('#name').val();
+				var email = $('#email').val();
+				var content = $('#content').val();
+				var idProduct = $('#idProduct').val();
+				var json = {'name' : name , 'email' : email , 'content' : content  , 'idProduct' : idProduct};
+				$.ajax({
+					url : $('#submitForm').attr('action'),
+					data : JSON.stringify(json),
+					type : 'POST',
+					timeout : 100000,
+					beforeSend : function(xhr){
+						xhr.setRequestHeader('Accept','application/json');
+						xhr.setRequestHeader('Content-Type','application/json');
+					},
+					success : function(data){
+						console.log("ok");
+						loadReview();
+						$('#name').val("");
+						$('#email').val("");
+						$('#content').val("");
+					},
+					error : function(e){
+						console.log("ERROR : ",e)
+					}
+				});
+				event.preventDefault();
 			});
-		});
+		
 	});
 	function loadReview(){
 		$.ajax({
-			url: "/ShopBook/api/review/3",
+			url: "/ShopBook/api/review/"+${product.id},
 			success : function(data){
 				for(var i = 0 ; i < data.length ; i++){
 					var str =  '<div  class="rattings-wrapper">';

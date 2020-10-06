@@ -14,6 +14,7 @@ public class OrderDetailDTO {
 	private Date createDate;
 	private Date updateDate;
 	private int activeFlag;
+	private int idProduct;
 	
 	
 	public OrderDetailDTO() {
@@ -85,6 +86,12 @@ public class OrderDetailDTO {
 	}
 	public void setIdOrder(int idOrder) {
 		this.idOrder = idOrder;
+	}
+	public int getIdProduct() {
+		return idProduct;
+	}
+	public void setIdProduct(int idProduct) {
+		this.idProduct = idProduct;
 	}
 	
 	
