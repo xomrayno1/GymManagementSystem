@@ -41,6 +41,7 @@ import com.tampro.validator.ProductInfoValidator;
 @RequestMapping("/manage/product-info")
 public class ProductInfoController {
 
+
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
 		if(dataBinder.getTarget() == null) {
@@ -126,7 +127,7 @@ public class ProductInfoController {
 		return "manage/productInfo-action";
 	}
 	@RequestMapping(value = {"/save"})
-	public String saveProductInfo(Model model,@ModelAttribute("submitForm") @Validated ProductInfoDTO productInfoDTO ,BindingResult result,HttpSession session)  {
+	public String saveProductInfo(Model model,@ModelAttribute("submitForm") @Validated ProductInfoDTO productInfoDTO ,BindingResult result,HttpSession session)  {		
 		if(result.hasErrors()) {
 			if(productInfoDTO.getId() != 0) {
 				model.addAttribute("title", "Edit");

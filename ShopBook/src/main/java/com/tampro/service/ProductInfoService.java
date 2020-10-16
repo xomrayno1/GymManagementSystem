@@ -1,11 +1,15 @@
 package com.tampro.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +18,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tampro.dao.ProductInfoDAO;
-import com.tampro.dto.FilterSearch;
 import com.tampro.dto.Paging;
 import com.tampro.dto.ProductInfoDTO;
 import com.tampro.entity.Author;
@@ -26,6 +29,8 @@ import com.tampro.utils.ConvertToDTO;
 public class ProductInfoService {
 	@Autowired
 	ProductInfoDAO<ProductInfo> productInfoDAO;
+	@Autowired
+	ServletContext servletContext;
 	
 	public	List<ProductInfoDTO> getProductNews(){
 		List<ProductInfoDTO> list = new ArrayList<ProductInfoDTO>();
@@ -201,8 +206,14 @@ public class ProductInfoService {
 		productInfoDAO.update(productInfo);
 	}
 	public void upload(String img,MultipartFile multipartFile) throws IllegalStateException, IOException {
-		File  file  = new File("D:\\EclipseProject\\ShopBook\\src\\main\\webapp\\static\\upload\\"+img);
-		multipartFile.transferTo(file);
+		String fileName = servletContext.getRealPath("/") +"static\\upload\\";
+		File file = new File(fileName + img);
+		//multipartFile.transferTo(file);
+		byte[] bytes = multipartFile.getBytes();
+		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
+		stream.write(bytes);
+		stream.close();
+		
 	}
 
 

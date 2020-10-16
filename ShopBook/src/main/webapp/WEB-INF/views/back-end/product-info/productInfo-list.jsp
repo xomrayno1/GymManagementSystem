@@ -6,7 +6,7 @@
 	<div class="">
 			<div class="page-title">
 				<div class="title_left">
-					<h4>Sản phẩm</h4>
+					<h4>Danh sách sản phẩm</h4>
 				</div>
 				<div class="clearfix"></div>
 			</div>
