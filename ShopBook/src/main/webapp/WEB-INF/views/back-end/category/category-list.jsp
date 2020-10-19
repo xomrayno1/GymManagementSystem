@@ -50,11 +50,14 @@
 		
 	<div class="table-responsive">
 		<a href='<c:url value="/manage/category/add"></c:url>'><button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Thêm</button></a>
+		<a data-toggle="modal" data-target="#excel-modal"	href="javascript:void(0)" ><button class="btn btn-success" title="import sản phẩm"><i class="glyphicon glyphicon-import"></i> Import</button></a>
+		<a href='<c:url value="/manage/category/excel-file"></c:url>'><button class="btn btn-default" title="lấy mẫu import"><i class="glyphicon glyphicon-file"></i> Document</button></a>
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
                             <th class="column-title">#</th>
                             <th class="column-title">Id</th>
+                            <th class="column-title">Hình ảnh</th>
                             <th class="column-title">Tên</th>
                             <th class="column-title">Code</th>
                             <th class="column-title no-link last text-center" colspan="3" ><span class="nobr">Action</span>
@@ -63,17 +66,18 @@
                         </thead>
 
                         <tbody>
-                          <c:forEach items="${listProduct}" var="product" varStatus="i"> 
+                          <c:forEach items="${listProduct}" var="category" varStatus="i"> 
                           	<tr>
                             <td>${pageInfo.offSet + i.index + 1} </td>
-                            <td>${product.id}</td>
-                        	<td>${product.name}</td>
-                        	<td>${product.code}</td>
+                            <td>${category.id}</td>
+                            <td><img width="70px" height="70px" alt="" src='<c:url value="${category.imgUrl}"></c:url>'></td>
+                        	<td>${category.name}</td>
+                        	<td>${category.code}</td>
                         	
                             <td colspan="3" class="last text-center">
-                            	<input type="hidden" id="idProduct" value="${product.id}">
-	                            <a href='<c:url value="/manage/category/view/${product.id}"></c:url>' class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> 
-	                            <a href='<c:url value="/manage/category/edit/${product.id}"></c:url>' class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a> 
+                            	<input type="hidden" id="idProduct" value="${category.id}">
+	                            <a href='<c:url value="/manage/category/view/${category.id}"></c:url>' class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> 
+	                            <a href='<c:url value="/manage/category/edit/${category.id}"></c:url>' class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a> 
 	                            <a data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-delete"><i class="glyphicon glyphicon-trash"></i></a>
                             </td>                  
                           	</tr>
@@ -101,6 +105,25 @@
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-default" >Có</button>
 							<button  class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="excel-modal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				  <form action='<c:url value="/manage/category/import-excel"></c:url>' method="post" enctype="multipart/form-data">
+					<div class="modal-header">
+						<p class="modal-title">Import sản phẩm</p>
+						<button class="close" data-dismiss="modal" >&times;</button>
+					</div>
+					<div class="modal-body">
+						<input type="file" name="file">
+					</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success" >Có</button>
+							<button  class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</form>
 				</div>

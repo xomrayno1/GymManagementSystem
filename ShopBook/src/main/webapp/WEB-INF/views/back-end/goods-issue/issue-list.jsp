@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="right_col" role="main">
 	<div class="">
 			<div class="page-title">
@@ -24,6 +24,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<form:input  type="date" path="dateTo" cssClass="form-control"/>
+												<form:hidden path="type"   value="2"/>
 											</div>
 										</div>
 										<div class="item form-group">
@@ -47,6 +48,9 @@
 					</div>		
 	<div class="table-responsive">
 		<a href='<c:url value="/manage/goods-issue/add"></c:url>'><button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Thêm</button></a>
+		<a title="Xuất báo cáo" 	onclick="gotoExcel()"  href="javascript:void(0)" ><button class="btn btn-success"><i class="glyphicon glyphicon-export"></i> Xuất Excel</button></a>
+		<a data-toggle="modal" data-target="#excel-modal"	href="javascript:void(0)" ><button class="btn btn-success" title="import sản phẩm"><i class="glyphicon glyphicon-import"></i> Import</button></a>
+		<a href='<c:url value="/manage/goods-issue/excel-file"></c:url>'><button class="btn btn-default" title="lấy mẫu import"><i class="glyphicon glyphicon-file"></i> Document</button></a>
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
@@ -69,9 +73,9 @@
                             <td>${pageInfo.offSet + i.index + 1} </td>
                             <td>${item.id}</td>
                         	<td>${item.productInfoDTO.name}</td>
-                        	<td>${item.price}</td>
+                        	<td><fmt:formatNumber value="${item.price}" type="currency" /> </td>
                         	<td>${item.quantity}</td> 
-                        	<td>${item.totalPrice}</td>
+                        	<td><fmt:formatNumber value="${item.totalPrice}" type="currency"	/></td>
                         	<td>${item.userDTO.name}</td>
                         	<td>${item.createDate}</td>                         	
                             <td colspan="3" class="last text-center">
@@ -88,22 +92,21 @@
 
 			<jsp:include page="/WEB-INF/views/back-end/layout/paging.jsp"/> 
       </div>
-		<div id="deleteModal" class="modal fade">
+
+		<div id="excel-modal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
+				  <form action='<c:url value="/manage/category/import-excel"></c:url>' method="post" enctype="multipart/form-data">
 					<div class="modal-header">
-						<p class="modal-title">Xóa</p>
+						<p class="modal-title">Import sản phẩm</p>
 						<button class="close" data-dismiss="modal" >&times;</button>
 					</div>
 					<div class="modal-body">
-						Bạn có chắc chắn muốn xóa không !
+						<input type="file" name="file">
 					</div>
-					<c:url value="/manage/goods-issue/delete" var="urlDelete" />
-					<form action="${urlDelete}" method="post">
-						<input type="hidden" id="idModalDelete" name="id">
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-default" >Có</button>
-							<button  class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-success" >Có</button>
+							<button  class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</form>
 				</div>
@@ -116,6 +119,11 @@
 	function gotoPage(page){
 		$("#searchForm").attr('action',"<c:url value='/manage/goods-issue/list/'/>"+page);
 		$("#searchForm").submit();
+	}
+	function gotoExcel(){
+		$("#searchForm").attr('action',"<c:url value='/manage/goods-issue/report'/>");
+		$("#searchForm").submit();
+		$("#searchForm").attr('action',"<c:url value='/manage/goods-issue/list/1'/>");
 	}
 	
 	$(document).ready(function(){

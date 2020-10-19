@@ -101,5 +101,7 @@
             </div>
         </div>
         <script type="text/javascript">
-
+	        $(document).ready(function(){
+				$('#wish').parent('li').addClass('select').siblings().removeClass('select');
+			});
 		</script>

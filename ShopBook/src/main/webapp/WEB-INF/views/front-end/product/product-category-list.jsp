@@ -45,7 +45,7 @@
 	                                        <div class="product-wrapper">
 	                                            <div class="product-img">
 	                                                <a href='<c:url value="/${product.url}"></c:url>'>
-	                                                    <img src='<c:url value="${product.imgUrl}"></c:url>' alt="">
+	                                                    <img src='<c:url value="${product.imgUrl}"></c:url>' alt="" width="150px" height="150px">
 	                                                </a>
 	                                            </div>
 	                                            <div class="product-content">

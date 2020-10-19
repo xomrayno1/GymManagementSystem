@@ -52,3 +52,8 @@
             </div>
         </div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('#password').parent('li').addClass('select').siblings().removeClass('select');
+	});
+</script>

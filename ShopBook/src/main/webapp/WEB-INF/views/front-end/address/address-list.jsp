@@ -49,4 +49,7 @@
 					location.href="<c:url value='/account/address/delete?id='/>"+id;
 				}
 			}
+			$(document).ready(function(){
+				$('#address').parent('li').addClass('select').siblings().removeClass('select');
+			});
 		</script>

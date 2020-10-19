@@ -1,5 +1,8 @@
 package com.tampro.dto;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -10,12 +13,14 @@ public class CategoryDTO  extends Base{
 	private String code;
 	private String name;
 	private String imgUrl;
-	private MultipartFile multipartFile;
+	private MultipartFile multipartFile  ;
 	private List<CategoryDTO> childCategory;
 	private int orderIndex;
 	private String url;
 	private List<ProductInfoDTO> productInfoDTOs;
 	private String idCategory;
+	
+	
 	
 	
 	public int getId() {

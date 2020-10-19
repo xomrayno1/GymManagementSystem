@@ -1,11 +1,16 @@
 package com.tampro.backend.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -20,9 +25,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tampro.dto.Paging;
 import com.tampro.dto.PublisherDTO;
+import com.tampro.report.ReportPublisher;
 import com.tampro.service.PublisherService;
 import com.tampro.utils.Constant;
 import com.tampro.validator.PublisherValidator;
@@ -84,8 +92,8 @@ public class PublisherController {
 		model.addAttribute("submitForm", publisherDTO);
 		return "manage/publisher-action";
 	}
-	@PostMapping(value = {"/delete"})
-	public String deletePublisher(Model model,@RequestParam("id")int id,HttpSession session) {
+	@GetMapping(value = {"/delete/{id}"})
+	public String deletePublisher(Model model,@PathVariable("id")int id,HttpSession session) {
 		PublisherDTO publisherDTO = publisherService.findById(id);
 		try {
 			publisherService.delete(publisherDTO);
@@ -137,4 +145,50 @@ public class PublisherController {
 		}
 		return "redirect:/manage/publisher/list/1";
 	}
+	@GetMapping(value = {"/excel-file"})
+	public ModelAndView report(Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setView(new ReportPublisher());
+		return modelAndView;
+	}
+	@PostMapping(value = {"/import-excel"})
+	public String  importExcel(Model model,@RequestParam("file") MultipartFile file,HttpSession session) throws IOException {
+		HSSFWorkbook workbook = new HSSFWorkbook(file.getInputStream());
+		HSSFSheet sheet = workbook.getSheetAt(0);		
+		for(int i = 0 ;	i < sheet.getPhysicalNumberOfRows() ; i++) {
+			if(i  > 0) {
+				HSSFRow row  = sheet.getRow(i);
+				PublisherDTO publisherDTO = new PublisherDTO();
+				try {
+					publisherDTO.setName(row.getCell(0).getStringCellValue());
+					publisherDTO.setCode(row.getCell(1).getStringCellValue());
+					publisherDTO.setPhone(row.getCell(2).getStringCellValue());
+					publisherDTO.setEmail(row.getCell(3).getStringCellValue());
+					publisherDTO.setAddress(row.getCell(4).getStringCellValue());
+					publisherDTO.setWebiste(row.getCell(5).getStringCellValue());
+					publisherService.add(publisherDTO);
+					session.setAttribute(Constant.MSG_SUCCESS, "Import thành công");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					session.setAttribute(Constant.MSG_ERROR, "Import thất bại");
+				}
+			}
+		}
+		return "redirect:/manage/publisher/list/1";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tampro.dto.InvoiceDTO;
 import com.tampro.dto.Paging;
 import com.tampro.dto.ProductInfoDTO;
 import com.tampro.dto.UserDTO;
+import com.tampro.report.ReportCategory;
+import com.tampro.report.ReportIssue;
 import com.tampro.service.InvoiceService;
 import com.tampro.service.ProductInfoService;
 import com.tampro.utils.Constant;
@@ -127,6 +131,20 @@ public class GoodsIssueController {
 		model.addAttribute("submitForm", invoiceDTO);
 		model.addAttribute("viewOnly", true);
 		return "manage/issue-action";
+	}
+	@PostMapping(value = {"/report"})
+	public ModelAndView excelFile(Model model , @ModelAttribute("searchForm") InvoiceDTO invoiceDTO) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setView(new ReportIssue());
+		List<InvoiceDTO> list = invoiceService.getAll(invoiceDTO,null);
+		if(invoiceDTO.getDateTo() != null && invoiceDTO.getDateFrom() != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			StringBuilder dateString = new StringBuilder();
+			dateString.append(format.format(invoiceDTO.getDateTo())+"_"+format.format(invoiceDTO.getDateFrom())+"_");			
+			modelAndView.addObject("dateString", dateString.toString());
+		}
+		modelAndView.addObject("list", list);
+		return modelAndView;
 	}
 	public void initSelect(Model model) {
 		List<ProductInfoDTO> list = productInfoService.getAll(null, null);

@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tampro.dto.OrderDTO;
 import com.tampro.dto.OrderDetailDTO;
 import com.tampro.dto.Paging;
 import com.tampro.dto.ProductInfoDTO;
+import com.tampro.entity.Order;
+import com.tampro.report.ReportOrder;
 import com.tampro.service.OrderDetailService;
 import com.tampro.service.OrderService;
 import com.tampro.service.ProductInfoService;
@@ -108,6 +112,25 @@ public class ManageOrderController {
 			e.printStackTrace();
 		}
 		return "redirect:/manage/order/view/"+id;
+	}
+	@PostMapping("/report")
+	public ModelAndView reportExcel(Model model,@ModelAttribute("searchForm") OrderDTO orderDTO ) {
+		ModelAndView modelAndView = new ModelAndView();
+		List<OrderDTO> list = orderService.getAll(orderDTO, null);
+		modelAndView.addObject("listOrder", list);
+		String dateString = getDateString(orderDTO);
+		modelAndView.addObject("dateString", dateString);
+		modelAndView.setView(new ReportOrder());
+		return modelAndView;
+	}
+	public String getDateString(OrderDTO orderDTO) {
+		StringBuilder builder = new StringBuilder();
+		
+		if(orderDTO.getDateTo() != null && orderDTO.getDateFrom() != null ) {
+			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+			builder.append(format.format(orderDTO.getDateTo())+"_"+format.format(orderDTO.getDateFrom())+"_");
+		}
+		return builder.toString();
 	}
 	public void initSelect(Model model) {
 		List<ProductInfoDTO> list = productInfoService.getAll(null, null);

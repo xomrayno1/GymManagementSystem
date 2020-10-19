@@ -81,3 +81,8 @@
             </div>
         </div>
 </div>
+	<script>
+		$(document).ready(function(){
+			$('#address').parent('li').addClass('select').siblings().removeClass('select');
+		});
+	</script>

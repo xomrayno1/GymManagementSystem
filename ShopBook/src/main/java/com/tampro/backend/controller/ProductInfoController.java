@@ -1,5 +1,6 @@
 package com.tampro.backend.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +11,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -24,12 +28,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tampro.dto.AuthorDTO;
 import com.tampro.dto.CategoryDTO;
 import com.tampro.dto.Paging;
 import com.tampro.dto.ProductInfoDTO;
 import com.tampro.dto.PublisherDTO;
+import com.tampro.report.ReportCategory;
+import com.tampro.report.ReportProduct;
 import com.tampro.service.AuthorService;
 import com.tampro.service.CategoryService;
 import com.tampro.service.ProductInfoService;
@@ -156,6 +164,32 @@ public class ProductInfoController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				session.setAttribute(Constant.MSG_ERROR, "Thêm thất bại");
+			}
+		}
+		return "redirect:/manage/product-info/list/1";
+	}
+	@GetMapping(value = {"/excel-file"})
+	public ModelAndView excelFiile(Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setView(new ReportProduct());
+		return modelAndView;
+	}
+	@PostMapping(value = {"/import-excel"})
+	public String importAuthor(Model model,@RequestParam("file") MultipartFile file,HttpSession session) throws IOException  {
+		HSSFWorkbook workbook = new HSSFWorkbook(file.getInputStream());
+		HSSFSheet workSheet = workbook.getSheetAt(0);
+		for(int i = 0 ; i < workSheet.getPhysicalNumberOfRows() ; i++) {
+			if(i > 0 ) {
+				ProductInfoDTO productInfoDTO = new ProductInfoDTO();
+				HSSFRow row = workSheet.getRow(i);
+				try {
+					
+					session.setAttribute(Constant.MSG_SUCCESS, "Import thành công");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					session.setAttribute(Constant.MSG_ERROR, "Import thất bại");
+				}
 			}
 		}
 		return "redirect:/manage/product-info/list/1";

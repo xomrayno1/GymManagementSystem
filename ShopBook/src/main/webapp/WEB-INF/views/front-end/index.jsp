@@ -45,7 +45,7 @@
 				                                <div class="product-wrapper mb-25">
 				                                    <div class="product-img">
 				                                        <a href='<c:url value="${product.url}"></c:url>'>
-				                                            <img src='<c:url value="${product.imgUrl}"></c:url>' alt="">
+				                                            <img width="150px" height="150px" src='<c:url value="${product.imgUrl}"></c:url>' alt="">
 				                                        </a>
 				                                    </div>
 				                                    <div class="product-content">
@@ -73,7 +73,7 @@
 				                           <div class="product-wrapper mb-25">
 				                               <div class="product-img">
 				                                    <a href='<c:url value="/the-loai/${menuChil.url}"></c:url>'>
-				                                        <img src='<c:url value="${menuChil.imgUrl}"></c:url>' alt="">
+				                                        <img width="150px" height="150px" src='<c:url value="${menuChil.imgUrl}"></c:url>' alt="">
 				                                     </a>
 				                                </div>
 				                                <div class="product-content">

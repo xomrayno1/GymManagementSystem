@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.tampro.utils.Constant;
+
 public class OrderDTO {
 	private int id;	
 	private int idUser;
@@ -112,5 +114,19 @@ public class OrderDTO {
 		this.dateFrom = dateFrom;
 	}
 
+	public String getDisplay() {
+		switch (status) {
+			case Constant.PROCESSING :			
+				return "Đang xử lý";
+			case Constant.COMPLETED :			
+				return "Hoàn thành";
+			case Constant.CANCEL:			
+				return "Đã hủy";	
+			case Constant.SHIPPING:			
+				return "Đang giao hàng";	
+		default:
+			return "null";
+		}
+	}
 	
 }

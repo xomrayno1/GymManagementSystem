@@ -17,6 +17,7 @@ public class Constant {
 	public static final int IN_STOCK = 7;
 	public static final int GOODS_RECEIPT = 1;
 	public static final int GOODS_ISSUE = 2;
-	public static final String ACTION_ADD = "Add";
+	public static final String ACTION_ADD = "Add"; 
 	public static final String ACTION_EDIT = "Edit";
+	public static final String ABSOLUTE_PATH = "D:\\EclipseProject\\ShopBook\\src\\main\\webapp\\static\\upload\\";
 }

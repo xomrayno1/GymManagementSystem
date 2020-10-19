@@ -16,6 +16,10 @@ public class InvoiceDTO extends Base{
 	private int idProduct;
 	
 	
+
+	public InvoiceDTO() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}

@@ -19,6 +19,7 @@
 										<form:hidden path="activeFlag"/>
 										<form:hidden path="createDate"/>
 										<form:hidden path="updateDate"/>
+										<form:hidden path="url"/>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Name<span class="required">*</span>
 											</label>

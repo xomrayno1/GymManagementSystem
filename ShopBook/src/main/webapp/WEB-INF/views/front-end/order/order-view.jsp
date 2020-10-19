@@ -167,4 +167,7 @@
 	    			location.href="<c:url value='/order/detail/delete/'/>"+id;
 	    		}
 	    	}
+	    	$(document).ready(function(){
+				$('#order').parent('li').addClass('select').siblings().removeClass('select');
+			});
 		</script>

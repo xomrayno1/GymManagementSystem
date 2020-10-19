@@ -69,7 +69,8 @@
 					</div>
 		
 	<div class="table-responsive">
-	<a href='<c:url value="/manage/order/add"></c:url>'><button class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Tạo hóa đơn </button></a>
+	<a href='<c:url value="/manage/order/add"></c:url>'><button class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Tạo hóa đơn </button></a>
+	<a onclick="gotoExcel()"  href="javascript:void(0)" ><button class="btn btn-success"><i class="glyphicon glyphicon-export"></i> Xuất Excel</button></a>
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
@@ -90,20 +91,7 @@
                             <td class="text-center"><a href='<c:url value="/manage/order/view/${item.id}"></c:url>'>${item.id}</a></td>
                             <td >
                             	<p class="status-content">
-									<c:choose>
-										<c:when test="${item.status == 3}">
-											Đang xử lý
-										</c:when>
-										<c:when test="${item.status == 1}">
-											Đã hủy
-										</c:when>
-										<c:when test="${item.status == 2}">
-											Hoàn thành
-										</c:when>
-										<c:otherwise> 
-											Đang giao hàng
-										</c:otherwise>
-									</c:choose>
+									${item.getDisplay() }
 								</p>
                           	</td>                          	
                           	<td>${item.shipmentDetails.name}</td>
@@ -127,7 +115,11 @@
 		$("#searchForm").attr('action',"<c:url value='/manage/order/list/'/>"+page);
 		$("#searchForm").submit();
 	}
-	
+	function gotoExcel(){
+		$("#searchForm").attr('action',"<c:url value='/manage/order/report'/>");
+		$("#searchForm").submit();
+		$("#searchForm").attr('action',"<c:url value='/manage/order/list/1'/>");
+	}
 	$(document).ready(function(){
 		var msgError = '${msgError}';
 		var msgSuccess ='${msgSuccess}';

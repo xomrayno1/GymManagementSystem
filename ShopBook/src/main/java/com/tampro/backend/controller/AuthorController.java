@@ -1,11 +1,15 @@
 package com.tampro.backend.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -20,9 +24,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tampro.dto.AuthorDTO;
 import com.tampro.dto.Paging;
+import com.tampro.report.ReportAuthor;
 import com.tampro.service.AuthorService;
 import com.tampro.utils.Constant;
 import com.tampro.validator.AuthorValidator;
@@ -137,5 +144,33 @@ public class AuthorController {
 			}
 			return "redirect:/manage/author/list/1";
 		}
-
+		@GetMapping(value = {"/excel-file"})
+		public ModelAndView report(Model model) {
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setView(new ReportAuthor());
+			return modelAndView;
+		}
+		@PostMapping(value = {"/import-excel"})
+		public String importAuthor(Model model,@RequestParam("file") MultipartFile file,HttpSession session) throws IOException  {
+			HSSFWorkbook workbook = new HSSFWorkbook(file.getInputStream());
+			HSSFSheet workSheet = workbook.getSheetAt(0);
+			for(int i = 0 ; i < workSheet.getPhysicalNumberOfRows() ; i++) {
+				if(i > 0 ) {
+					AuthorDTO authorDTO = new AuthorDTO();
+					HSSFRow row = workSheet.getRow(i);
+					try {
+						authorDTO.setName(row.getCell(0).getStringCellValue());
+						authorDTO.setEmail(row.getCell(1).getStringCellValue());					
+						authorDTO.setDescription(row.getCell(2).getStringCellValue());
+						authorService.add(authorDTO);
+						session.setAttribute(Constant.MSG_SUCCESS, "Import thành công");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						session.setAttribute(Constant.MSG_ERROR, "Import thất bại");
+					}
+				}
+			}
+			return "redirect:/manage/author/list/1";
+		}
 }

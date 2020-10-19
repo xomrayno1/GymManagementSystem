@@ -50,6 +50,8 @@
 		
 	<div class="table-responsive">
 		<a href='<c:url value="/manage/publisher/add"></c:url>'><button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Thêm</button></a>
+        <button data-toggle="modal"  data-target="#excel-modal" class="btn btn-success" title="import sản phẩm"><i class="glyphicon glyphicon-import"></i> Import</button>
+		<a href='<c:url value="/manage/publisher/excel-file"></c:url>'><button class="btn btn-default" title="lấy mẫu import"><i class="glyphicon glyphicon-file"></i> Document</button></a>
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
@@ -76,7 +78,7 @@
                             	<input type="hidden" id="idProduct" value="${product.id}">
 	                            <a href='<c:url value="/manage/publisher/view/${product.id}"></c:url>' class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"></i></a> 
 	                            <a href='<c:url value="/manage/publisher/edit/${product.id}"></c:url>' class="btn btn-warning"><i class="glyphicon glyphicon-edit"></i></a> 
-	                            <a data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-delete"><i class="glyphicon glyphicon-trash"></i></a>
+	                            <a onclick="deleteItem(${product.id})" class="btn btn-danger btn-delete"><i class="glyphicon glyphicon-trash"></i></a>
                             </td>                  
                           	</tr>
                           </c:forEach>
@@ -86,22 +88,20 @@
 	<jsp:include page="/WEB-INF/views/back-end/layout/paging.jsp"/> 
 
       </div>
-		<div id="deleteModal" class="modal fade">
+		<div id="excel-modal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
+				  <form action='<c:url value="/manage/publisher/import-excel"></c:url>' method="post" enctype="multipart/form-data">
 					<div class="modal-header">
-						<p class="modal-title">Xóa</p>
+						<p class="modal-title">Import sản phẩm</p>
 						<button class="close" data-dismiss="modal" >&times;</button>
 					</div>
 					<div class="modal-body">
-						Bạn có chắc chắn muốn xóa không !
+						<input type="file" name="file">
 					</div>
-					<c:url value="/manage/product-info/delete" var="urlDelete" />
-					<form action="${urlDelete}" method="post">
-						<input type="hidden" id="idModalDelete" name="id">
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-default" >Có</button>
-							<button  class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-success" >Có</button>
+							<button  class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</form>
 				</div>
@@ -114,8 +114,12 @@
 	function gotoPage(page){
 		$("#searchForm").attr('action',"<c:url value='/manage/publisher/list/'/>"+page);
 		$("#searchForm").submit();
+	}	
+	function deleteItem(index){
+		if(confirm('Bạn có chắc chắn muốn xóa nó không  ?')){
+			location.href="<c:url value='/manage/publisher/delete/'/>"+index;
+		}
 	}
-	
 	$(document).ready(function(){
 		var msgError = '${msgError}';
 		var msgSuccess ='${msgSuccess}';

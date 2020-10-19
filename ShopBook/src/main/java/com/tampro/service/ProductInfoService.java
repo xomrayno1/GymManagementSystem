@@ -24,6 +24,7 @@ import com.tampro.entity.Author;
 import com.tampro.entity.Category;
 import com.tampro.entity.ProductInfo;
 import com.tampro.entity.Publisher;
+import com.tampro.utils.Constant;
 import com.tampro.utils.ConvertToDTO;
 @Service
 public class ProductInfoService {
@@ -121,10 +122,12 @@ public class ProductInfoService {
 		productInfo.setCreateDate(new Date());
 		productInfo.setDateOfPublication(productInfoDTO.getDateOfPublication());
 		productInfo.setDescription(productInfoDTO.getDescription());
-		if(!productInfoDTO.getMultipartFile().getOriginalFilename().isEmpty()) {
-			String img = System.currentTimeMillis()+"_"+productInfoDTO.getMultipartFile().getOriginalFilename();
-			upload(img, productInfoDTO.getMultipartFile());
-			productInfo.setImgUrl("/resources/upload/"+img);	
+		if(productInfoDTO.getMultipartFile() != null) {
+			if(!productInfoDTO.getMultipartFile().isEmpty()) {
+				String img = System.currentTimeMillis()+"_"+productInfoDTO.getMultipartFile().getOriginalFilename();
+				upload(img, productInfoDTO.getMultipartFile());
+				productInfo.setImgUrl("/resources/upload/"+img);	
+			}
 		}
 		productInfo.setISBN(productInfoDTO.getISBN());
 		productInfo.setName(productInfoDTO.getName());
@@ -167,12 +170,14 @@ public class ProductInfoService {
 		productInfo.setDateOfPublication(productInfoDTO.getDateOfPublication());
 		productInfo.setDescription(productInfoDTO.getDescription());
 		productInfo.setId(productInfoDTO.getId());
-		if(!productInfoDTO.getMultipartFile().getOriginalFilename().isEmpty()) {
-			String img = System.currentTimeMillis()+"_"+productInfoDTO.getMultipartFile().getOriginalFilename();
-			upload(img, productInfoDTO.getMultipartFile());
-			productInfo.setImgUrl("/resources/upload/"+img);	
-		}else {
-			productInfo.setImgUrl(productInfoDTO.getImgUrl());
+		if(productInfoDTO.getMultipartFile() != null) {
+			if(!productInfoDTO.getMultipartFile().isEmpty()) {
+				String img = System.currentTimeMillis()+"_"+productInfoDTO.getMultipartFile().getOriginalFilename();
+				upload(img, productInfoDTO.getMultipartFile());
+				productInfo.setImgUrl("/resources/upload/"+img);	
+			}else {
+				productInfo.setImgUrl(productInfoDTO.getImgUrl());
+			}
 		}
 		productInfo.setISBN(productInfoDTO.getISBN());
 		productInfo.setName(productInfoDTO.getName());
@@ -208,9 +213,10 @@ public class ProductInfoService {
 	public void upload(String img,MultipartFile multipartFile) throws IllegalStateException, IOException {
 		String fileName = servletContext.getRealPath("/") +"static\\upload\\";
 		File file = new File(fileName + img);
-		//multipartFile.transferTo(file);
+		File fileAbsolute = new File(Constant.ABSOLUTE_PATH + img);	
 		byte[] bytes = multipartFile.getBytes();
 		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
+		multipartFile.transferTo(fileAbsolute);
 		stream.write(bytes);
 		stream.close();
 		

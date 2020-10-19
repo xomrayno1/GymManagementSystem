@@ -63,3 +63,9 @@
             </div>
         </div>
 </div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#account').parent('li').addClass('select').siblings().removeClass('select');
+		});
+	</script>
+

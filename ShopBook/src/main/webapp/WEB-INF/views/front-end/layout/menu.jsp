@@ -3,23 +3,23 @@
            <div class="col-sm-2 col-sm-2">
                 		<h3 class="page-title text-center"><i class="fa fa-user"></i></h3>             
                    		<ul class="list-group">
-                   			<li class="list-group-item ">
-                   				<a href='<c:url value="/account/"></c:url>'>Thông tin tài khoản</a>
+                   			<li  class="list-group-item">
+                   				<a id="account"  href='<c:url value="/account/"></c:url>'>Thông tin tài khoản</a>
                    			</li>
                    			<li class="list-group-item ">
-                   				<a href='<c:url value="/order/list"></c:url>'>Quản lý đơn hàng</a>
+                   				<a	id="order"  href='<c:url value="/order/list"></c:url>'>Quản lý đơn hàng</a>
                    			</li>
                    			<li class="list-group-item">
-                   				<a href='<c:url value="/account/address/list"></c:url>'>Sổ địa chỉ</a>
+                   				<a id="address"	href='<c:url value="/account/address/list"></c:url>'>Sổ địa chỉ</a>
                    			</li>
                    			<li class="list-group-item">
-                   				<a href='<c:url value="/account/wishlist"></c:url>'>Sản phẩm yêu thích</a>
+                   				<a	id="wish" href='<c:url value="/account/wishlist"></c:url>'>Sản phẩm yêu thích</a>
                    			</li>
                    			<li class="list-group-item">
                    				<a href="#">Sản phẩm bạn đã xem</a>
                    			</li>
                    			<li class="list-group-item">
-                   				<a href='<c:url value="/account/password"></c:url>'>Đổi mật khẩu</a>
+                   				<a	id="password" href='<c:url value="/account/password"></c:url>'>Đổi mật khẩu</a>
                    			</li>
                    		</ul>
              </div>

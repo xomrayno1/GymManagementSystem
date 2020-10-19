@@ -1,11 +1,17 @@
 package com.tampro.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,7 @@ import com.tampro.dao.CategoryDAO;
 import com.tampro.dto.CategoryDTO;
 import com.tampro.dto.Paging;
 import com.tampro.entity.Category;
+import com.tampro.utils.Constant;
 import com.tampro.utils.ConvertToDTO;
 
 @Service
@@ -24,6 +31,8 @@ public class CategoryService {
 
 	@Autowired
 	CategoryDAO<Category> categoryDAO;
+	@Autowired
+	ServletContext context;
 	
 	public List<CategoryDTO> getAll(CategoryDTO categoryDTO , Paging paging){
 		StringBuilder queryStr = new  StringBuilder();
@@ -74,12 +83,14 @@ public class CategoryService {
 		category.setCreateDate(categoryDTO.getCreateDate());
 		category.setId(categoryDTO.getId());
 		category.setIdParent(categoryDTO.getIdParent());
-		if(!categoryDTO.getMultipartFile().getOriginalFilename().isEmpty()) {
-			String img =System.currentTimeMillis()+"_"+categoryDTO.getMultipartFile().getOriginalFilename();
-			upload(img, categoryDTO.getMultipartFile());
-			category.setImgUrl("/resources/upload/"+img);	
-		}else {
-			category.setImgUrl(categoryDTO.getImgUrl());
+		if(categoryDTO.getMultipartFile() != null ) {
+			if(!categoryDTO.getMultipartFile().isEmpty()) {
+				String img =System.currentTimeMillis()+"_"+categoryDTO.getMultipartFile().getOriginalFilename();
+				upload(img, categoryDTO.getMultipartFile());
+				category.setImgUrl("/resources/upload/"+img);
+			}else {
+				category.setImgUrl(categoryDTO.getImgUrl());
+			}			
 		}
 		category.setName(categoryDTO.getName());
 		category.setOrderIndex(categoryDTO.getOrderIndex());
@@ -94,10 +105,12 @@ public class CategoryService {
 		category.setCreateDate(new Date());
 		category.setId(categoryDTO.getId());
 		category.setIdParent(categoryDTO.getIdParent());
-		if(!categoryDTO.getMultipartFile().getOriginalFilename().isEmpty()) {
-			String img = System.currentTimeMillis()+"_"+categoryDTO.getMultipartFile().getOriginalFilename();
-			upload(img, categoryDTO.getMultipartFile());
-			category.setImgUrl("/resources/upload/"+img);	
+		if(categoryDTO.getMultipartFile() != null ) {
+			if(!categoryDTO.getMultipartFile().isEmpty()) {
+				String img = System.currentTimeMillis()+"_"+categoryDTO.getMultipartFile().getOriginalFilename();
+				upload(img, categoryDTO.getMultipartFile());
+				category.setImgUrl("/resources/upload/"+img);	
+			}
 		}
 		category.setName(categoryDTO.getName());
 		category.setOrderIndex(categoryDTO.getOrderIndex());
@@ -106,8 +119,13 @@ public class CategoryService {
 		categoryDAO.add(category);
 	}
 	public void upload(String img,MultipartFile multipartFile) throws IllegalStateException, IOException {
-		File  file  = new File("D:\\EclipseProject\\ShopBook\\src\\main\\webapp\\static\\upload\\"+img);
-		multipartFile.transferTo(file);
+		File  fileAbsolute = new File(Constant.ABSOLUTE_PATH+img);
+		File  fileRealPath = new File(context.getRealPath("/")+"static\\upload\\"+img);
+		byte[] bytes = multipartFile.getBytes();
+		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fileAbsolute));
+		stream.write(bytes);
+		stream.close();
+		multipartFile.transferTo(fileRealPath);
 	}
 	public CategoryDTO findById(int id) {
 		Category category = categoryDAO.findById(Category.class, id);

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="right_col" role="main">
 	<div class="">
 			<div class="page-title">
@@ -91,9 +91,9 @@
                             	</c:choose>
                             </td>
                         	<td>${item.productInfoDTO.name}</td>
-                        	<td>${item.price}</td>
+                        	<td><fmt:formatNumber value="${item.price}" type="currency" /> </td>
                         	<td>${item.quantity}</td> 
-                        	<td>${item.totalPrice}</td>
+                        	<td><fmt:formatNumber value="${item.totalPrice}" type="currency"	/></td>
                         	<td>${item.userDTO.name}</td>  
                         	<td>${item.createDate}</td>                         	                 
                           	</tr>

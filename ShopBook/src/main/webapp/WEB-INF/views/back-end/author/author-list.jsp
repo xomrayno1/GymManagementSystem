@@ -39,7 +39,10 @@
 						</div>
 					</div>		
 	<div class="table-responsive">
+		
 		<a href='<c:url value="/manage/author/add"></c:url>'><button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i>Thêm</button></a>
+        <button data-toggle="modal" data-target="#excel-model" type="submit" form="form-excel" class="btn btn-success" title="import sản phẩm"><i class="glyphicon glyphicon-import"></i> Import</button>
+		<a href='<c:url value="/manage/author/excel-file"></c:url>'><button class="btn btn-default" title="lấy mẫu import"><i class="glyphicon glyphicon-file"></i> Document</button></a>             
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
@@ -96,6 +99,25 @@
 				</div>
 			</div>
 		</div>
+		<div id="excel-model" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+				  <form action='<c:url value="/manage/author/import-excel"></c:url>' method="post" enctype="multipart/form-data">
+					<div class="modal-header">
+						<p class="modal-title">Import sản phẩm</p>
+						<button class="close" data-dismiss="modal" >&times;</button>
+					</div>
+					<div class="modal-body">
+						<input type="file" name="file">
+					</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success" >Có</button>
+							<button  class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -104,7 +126,7 @@
 		$("#searchForm").attr('action',"<c:url value='/manage/author/list/'/>"+page);
 		$("#searchForm").submit();
 	}
-	
+
 	$(document).ready(function(){
 		var msgError = '${msgError}';
 		var msgSuccess ='${msgSuccess}';

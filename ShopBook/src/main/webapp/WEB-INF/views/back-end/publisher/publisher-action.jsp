@@ -86,9 +86,9 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#manageproductlistId').addClass('current-page').siblings().removeClass("current-page");
-			$("#manageproductlistId").parents("li").addClass("active").siblings().removeClass("active");
-			$("#manageproductlistId").parents().show();
+			$('#managepublisherlistId').addClass('current-page').siblings().removeClass("current-page");
+			$("#managepublisherlistId").parents("li").addClass("active").siblings().removeClass("active");
+			$("#managepublisherlistId").parents().show();
 			
 		});	
 	</script>
